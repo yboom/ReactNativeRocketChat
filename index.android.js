@@ -5,7 +5,7 @@ import React, {
 
 import Main from './app/components/main';
 
-let ReactNativeTodos = React.createClass({
+let ReactNativeRocketChat = React.createClass({
   render() {
     return (
       <Main />
