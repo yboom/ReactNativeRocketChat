@@ -15,6 +15,8 @@ import Accounts from '../config/db/accounts';
 // Polyfill the process functionality needed for minimongo-cache
 global.process = require("../config/db/lib/process.polyfill");
 
+import RefreshOption from './refreshOption';
+
 export default React.createClass({
   // Configuration
   displayName: 'Main',
@@ -68,7 +70,14 @@ export default React.createClass({
 
     let rightButton = undefined;
     if (route.rightButton) {
-      rightButton = React.cloneElement(route.rightButton, {navigator: navigator});
+    	if(route.rightButton.type && (route.rightButton.type.displayName === 'App Options'))
+    	{
+    		rightButton = React.cloneElement(route.rightButton, {navigator: navigator});
+    	}
+    	else
+    	{
+      		rightButton = route.rightButton;//React.cloneElement(route.rightButton, {navigator: navigator});
+      	}
     }
 
     return (
@@ -101,7 +110,8 @@ export default React.createClass({
       <Navigator
         initialRoute={{
           component: Lists,
-          title: "Channels&Group",
+          title: "Channels & Groups",
+          leftButton:<RefreshOption />,
           rightButton: <AppOptions />
         }}
         renderScene={this.renderScene}

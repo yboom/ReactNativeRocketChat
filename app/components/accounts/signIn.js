@@ -28,11 +28,26 @@ export default React.createClass({
     if (!email || !password) {
       return this.setState({error: 'Please enter all fields.'});
     }
-
-    this.setState({email: '', password: ''}, () => {
-      this.props.navigator.pop();
-      Accounts.signIn(email, password);
-    });
+	if(Accounts.connectionError())
+    {
+    	Accounts.ddpConnection()
+      	.then(() => {
+        	 this.setState({email: '', password: ''}, () => {
+      			this.props.navigator.pop();
+      			Accounts.signIn(email, password);
+    		});
+      	})
+      	.catch((err) => {
+      		this.setState({error: err});
+      	})
+    }
+    else
+    {
+    	this.setState({email: '', password: ''}, () => {
+      		this.props.navigator.pop();
+      		Accounts.signIn(email, password);
+    	});
+    }
   },
 
   // Component Render

@@ -4,64 +4,135 @@ import React, {
   TextInput,
   Image,
   PixelRatio,
-  AlertIOS
+  Alert,
 } from 'react-native';
+let {AsyncStorage} = React;
+let {NativeAppEventEmitter} = React;
 
 import addIcon from '../../images/fa-plus-circle/fa-plus-circle.png';
 
 import TodosDB from '../../config/db/todos';
 import Accounts from '../../config/db/accounts';
 
+//var subscription = null;
 export default React.createClass({
   // Configuration
   displayName: 'Todo Item Add',
   propTypes: {
-    listId: React.PropTypes.string
+    listId: React.PropTypes.string,
+    user:React.PropTypes.object.isRequired
   },
-
+	subscription:null,
   // Initial State
   getInitialState() {
     return {
       message: '',
-      user:{}
+      error:''
     }
   },
-    componentWillMount() {
-    Accounts.userId.then((userId)=>{
-    	if(userId){
-    		this.setState({user:{_id:userId}});
-    	}
-    	Accounts.userName.then((userName)=>{
-  			if(userName)
-  			{
-  				this.setState({user:{_id:this.state.user._id,name:userName}});
-  			}
+  componentWillMount() {
+    //this.subscription = NativeAppEventEmitter.addListener('pasteBoard', (body)=>{this.setState({message:body.value});});
+    this.subscription = NativeAppEventEmitter.addListener('copymsg', (body)=>{this.setState({message:body});});
+  },
+  componentWillUnmount() {
+    this.subscription.remove();
+  },
+  saveInfo(rid,todo)
+  {
+    	let todoObj = {rid: rid,msg: todo,u:{_id:this.props.user._id,username:this.props.user.name}}
+        	AsyncStorage.getItem('messageSAE'+this.props.listId,(error,result)=>{
+  				if(result)
+  				{
+  					var message = JSON.parse(result);
+  					var errors = [];
+  					if(message.error && message.error.length > 0) errors = message.error;
+  					if(message.info && message.info.length > 0)
+  					{
+  						var todos = message.info;
+  						todos.push(todoObj);
+  						var results = {'info':todos,'error':errors};
+  						AsyncStorage.setItem('messageSAE'+this.props.listId,JSON.stringify(results));
+  					}
+  					else
+  					{
+  						var infos = [];
+  						infos.push(todoObj);
+  						var results = {'info':infos,'error':errors};
+  						AsyncStorage.setItem('messageSAE'+this.props.listId,JSON.stringify(results));
+  					}
+  				}
+  				else
+  				{
+  					var infos = [];
+  					infos.push(todoObj);
+  					var results = {'info':infos};
+  					AsyncStorage.setItem('messageSAE'+this.props.listId,JSON.stringify(results));
+  				}
+  				Alert.alert('',this.state.error+'. Message save to Sending');
+  				this.setState({message: ''});
+      			this.refs.input.clear();
   		});
-    });
     },
   // Event Handlers
   handleSubmit() {
-  	//AlertIOS.alert('',this.state.user._id+'133'+this.state.user.name);
+  	//Alert.alert('',this.state.user._id+'133'+this.state.user.name);
   	if(Object.keys(Accounts.userId).length <= 0)
   	{
-  		AlertIOS.alert('','Please login');
+  		Alert.alert('','Please login');
   		return;
   	}
   	if(!this.state.message.length)
   	{
-  		AlertIOS.alert('','Input information');
+  		Alert.alert('','Input information');
   		return;
   	}
     if (this.state.message.length) {
-      let u = {_id:this.state.user._id,username:this.state.user.name};
-      TodosDB.addTodo(this.state.message, this.props.listId,u);
-      this.setState({message: ''});
-      this.refs.input.clear();
+    	if(TodosDB.connectionError())
+    	{
+    		TodosDB.ddpConnection()
+      		.then(() => {
+        	 	Accounts.signInWithToken()
+        	 	.then(() => {
+        	 		let u = {_id:this.props.user._id,username:this.props.user.name};
+      				TodosDB.addTodo(this.state.message, this.props.listId,u);
+      				this.setState({message: ''});
+      				this.refs.input.clear();
+        	 	})
+        	 	.catch((err) => {
+        	 		console.log('send message loginToken:'+err);
+        	 		this.setState({error:err});
+        	 		this.saveInfo(this.props.listId,this.state.message);
+        	 	})
+      		})
+      		.catch((err) => {
+      			//Alert.alert('',err);
+        		console.log('send message connection:'+err);
+        		this.setState({error:err});
+        		this.saveInfo(this.props.listId,this.state.message);
+      		})
+    	}
+      else
+      {
+      	let u = {_id:this.props.user._id,username:this.props.user.name};
+      	TodosDB.addTodo(this.state.message, this.props.listId,u);
+      	this.setState({message: ''});
+      	this.refs.input.clear();
+      }
     }
   },
 
   // Component Render
   render() {
+  	let sytlesInput=[];
+  	sytlesInput.push(styles.input);
+  	if(require('react-native').Platform.OS === 'ios')
+  	{
+  		sytlesInput.push(styles.inputIOS);
+  	}
+  	else
+  	{
+  		sytlesInput.push(styles.inputAndroid);
+  	}
     return (
       <View>
         <View style={styles.row}>
@@ -71,9 +142,13 @@ export default React.createClass({
             />
           <TextInput
             ref='input'
-            style={styles.input}
+            style={sytlesInput}
             placeholder="Send new message"
             onSubmitEditing={this.handleSubmit}
+            multiline={true}
+            returnKeyType='send'
+            blurOnSubmit={true}
+            value = {this.state.message}
             onChangeText={(message) => this.setState({message: message})}
             />
         </View>
@@ -92,7 +167,13 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 20
+    fontSize:15
+  },
+  inputIOS:{
+  	height: 30
+  },
+  inputAndroid:{
+  	height: 37
   },
   icon: {
     marginRight: 10,

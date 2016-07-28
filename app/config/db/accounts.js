@@ -1,8 +1,13 @@
-let React = require('react-native');
+import React, {
+
+} from 'react-native';
+//let React = require('react-native');
 let {AsyncStorage} = React;
 let ddpClient = require('./lib/ddpClient');
 let EventEmitter = require('event-emitter');
 //let Cookie = require('react-cookie')
+
+let loginName = null;
 
 let login = (loginObj, resolve, reject) => {
   let obj = { loggedIn: false};
@@ -17,11 +22,16 @@ let login = (loginObj, resolve, reject) => {
   	//console.log(err);
   	//console.log(res);
     if (err) {
+    //console.log(err.reason);
+      if(err.reason)
+  	  {
+  		require('react-native').Alert.alert('',err.reason);
+  	  }
       reject(err);
     }
 
     if (res) {
-    	console.log(res);
+    	//console.log(res);
     	let userId = res.id.toString();
       	AsyncStorage.setItem('userId', userId);
     	let collection = ddpClient.connection.collections.users;
@@ -32,6 +42,7 @@ let login = (loginObj, resolve, reject) => {
        		if(user && user.length > 0)
        		{
        			AsyncStorage.setItem('userName',user[0].username.toString());
+       			loginName = user[0].username.toString();
        		}
        	}
       
@@ -57,23 +68,47 @@ Accounts.emitter = new EventEmitter();
 Accounts.userId = AsyncStorage.getItem('userId');
 Accounts.userName = AsyncStorage.getItem('userName');
 
+Accounts.name = () => {return loginName;};
 Accounts.signOut = () => {
   return new Promise((resolve, reject) => {
+  	var removes = ['room','userId','userName', 'loginToken', 'loginTokenExpires'];
+  	AsyncStorage.getItem('room',(error,result)=>
+	{
+			
+		if(result)
+		{
+			var room = JSON.parse(result);
+			for(var i=0;i<room.length;i++)
+			{
+				removes.push('message'+room[i]._id);
+			}
+		}
+	});
+	function removeMessage()
+	{
+		AsyncStorage.multiRemove(removes);
+	}
     ddpClient.connection.call("logout", [], (err, res) => {
       if (err) {
         console.log('err', err);
       } else {
         console.log('delete the tokens');
-
+		//'message'+listId
+		//removeMessage();
         Accounts.emitter.emit('loggedOut');
-
-        AsyncStorage.multiRemove(['userId','userName', 'loginToken', 'loginTokenExpires']);
+		
+        AsyncStorage.multiRemove(['userId','userName', 'loginToken', 'loginTokenExpires','room']);
       }
     });
     resolve(true);
   });
 };
-
+Accounts.connectionError = function(){
+	return ddpClient.error;
+};
+Accounts.ddpConnection = function(){
+	return ddpClient.initialize();
+};
 Accounts.signIn = (email, password) => {
   return new Promise((resolve, reject) => {
     login({email: email, password: password}, resolve, reject);

@@ -5,69 +5,92 @@ let _ = require('underscore');
 
 let TodosDB = {};
 
-TodosDB.subscribeToTodos = (listId) => {
-  return ddpClient.subscribe('mobileMessages', [listId]);
+TodosDB.subscribeToTodos = (listId,timestamp) => {
+  if(timestamp)
+  {
+  	return ddpClient.subscribe('mobileMessages', [listId,timestamp]);
+  }
+  else
+  {
+  	return ddpClient.subscribe('mobileMessages', [listId]);
+  }
+};
+TodosDB.unsubscribeToTodos = (listId) => {
+  return ddpClient.unsubscribe(listId);
 };
 TodosDB.connectionError = function(){
 	return ddpClient.error;
-}
+};
+TodosDB.ddpConnection = function(){
+	return ddpClient.initialize();
+};
+TodosDB.ddpClose = function(){
+	return ddpClient.close();
+};
 TodosDB.hostAddress = function(){
 //console.log(ddpClient);
 	return 'http://'+ddpClient.connection.host+':'+ddpClient.connection.port;
-}
-
-TodosDB.observeTodos = (listId, cb) => {
-console.log("listIdMessage");
+};
+TodosDB.observeTodos = (listId, cb,count,timestamp) => {
+//console.log("listIdMessage");
   let observer = ddpClient.connection.collections.observe(() => {
     let collection = ddpClient.connection.collections.rocketchat_message;
     if (collection) {
     	//console.log(collection.find({rid: listId,t:null}, {sort: {ts : -1}}));
-      return collection.find({rid: listId,t:null}, {sort: {ts : -1}});
+    	if(count && timestamp)
+    	{
+      		return collection.find({rid: listId,t:null,ts:{$lt:timestamp}}, {sort: {ts : -1},limit:count});
+      	}
+      	else if(count && !timestamp)
+      	{
+      		return collection.find({rid: listId,t:null}, {sort: {ts : -1},limit:count});
+      	}
+      	else
+      	{
+      		return collection.find({rid: listId,t:null}, {sort: {ts : -1},limit:count});
+      	}
     } else {
       return [];
     }
   });
 
   observer.subscribe((results) => {
-  	AsyncStorage.setItem('message'+listId,JSON.stringify(results));
-  	//console.log('subscribe results----------------');
+  	console.log('message results----------------');
     cb(results);
   });
 };
 
-// TodosDB.getTodos = (listId) => {
-//   return new Promise(function (resolve, reject){
-//     resolve(ddpClient.connection.collections.todos.find({listId: listId}));
-//   });
-// };
+TodosDB.removeMessage = (todo) => {
+	let collection = ddpClient.connection.collections.rocketchat_message;
+    if (collection) {
+    	return collection.remove({_id:todo._id});
+    }
+    return 0;
+};
+TodosDB.addTodos = (todo, rid,u) => {
+  let todoObj = {
+    rid: rid,
+    msg: todo,
+    //ts: new Date(),
+    u:u
+  };
+
+  return ddpClient.call('sendMessage', [todoObj]);
+};
 
 TodosDB.addTodo = (todo, rid,u) => {
   let todoObj = {
     rid: rid,
     msg: todo,
-    ts: new Date(),
+    //ts: new Date(),
     u:u
-  };
-
-  let listMod = {
-    $inc: {msgs: 1}
   };
 
   return ddpClient.call('sendMessage', [todoObj]);
 };
 
 TodosDB.deleteTodo = (todo) => {
-  return ddpClient.call('deleteMessage', [todo._id]);
-};
-
-TodosDB.changeTodoState = (todo, checked) => {
-  let todoMod = {$set: {checked: checked}};
-  let listMod = {$inc: {incompleteCount: checked ? -1 : 1}};
-
-  return ddpClient.call('Todos.update', [todo._id, todoMod])
-    .then(() => {
-      return ddpClient.call('Lists.update', [todo.listId, listMod]);
-    });
+  return ddpClient.call('deleteMessage', [todo]);
 };
 
 module.exports = TodosDB;

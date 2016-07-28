@@ -122,6 +122,8 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   icon: {
-    tintColor: 'rgba(0, 0, 0, 0.5)'
+    tintColor: 'rgba(0, 0, 0, 0.5)',
+    marginTop:10,
+    marginRight:3
   }
 });
