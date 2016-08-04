@@ -14,6 +14,7 @@ import SendTodos from '../todos/sendtodos';
 import TodoItemMore from './todoItemMore';
 //var count = 20;
 //var sendNote = false;
+var myClass = require("NativeModules").MyClass;
 export default React.createClass({
   // Configuration
   displayName: 'Todos',
@@ -88,6 +89,10 @@ export default React.createClass({
         			//console.log(results);
         			if(results.length > 0)
         			{
+        				if(require('react-native').Platform.OS === 'ios')
+        				{
+        					//myClass.saveSpotlight({name:this.props.path,data:results},(error,result)=>{});
+        				}
         				AsyncStorage.setItem('message'+listId,JSON.stringify(results));
           				this.setState({todos: this.state.todos.cloneWithRows(results)});
           				this.dataSource=results;
@@ -151,7 +156,7 @@ export default React.createClass({
     		require('react-native').NativeAppEventEmitter.emit('reloadWeb',todo);
     	}
     }
-    return <TodoItem todo={todo} key={todo._id} path={this.props.path} navigator={this.props.navigator} user={this.user} update={this}/>;
+    return <TodoItem todo={todo} key={todo._id} path={this.props.path} navigator={this.props.navigator} user={this.user} update={this} listId={this.props.listId} />;
   },
 
   renderHeader() {

@@ -23,17 +23,17 @@ export default React.createClass({
 
   // Event Handlers
   handleSubmit() {
-    if (this.state.list.length) {
-      ListsDB.addNewList(this.state.list);
-      this.setState({list: ''});
-      this.refs.input.clear();
+    if (this.state.list.length) 
+    {
+      //let results = ListsDB.findList(this.state.list);
+      //this.setState({list: ''});
+      //this.refs.input.clear();
     }
   },
 
   // Component Render
   render() {
-    return null;
-    /*(
+    return null;/*(
       <View>
         <View style={styles.row}>
           /*<Image
@@ -43,14 +43,14 @@ export default React.createClass({
           <TextInput
             ref='input'
             style={styles.input}
-            placeholder="Type to add new lists"
+            placeholder="Search"
             onSubmitEditing={this.handleSubmit}
             onChangeText={(list) => this.setState({list: list})}
             />
         </View>
         <View style={styles.border} />
       </View>
-    );//*/
+    );*/
   }
 });
 

@@ -46,6 +46,24 @@ ListsDB.Listdetail = (roomid) => {
    }
    return null;
 };
+ListsDB.findList = (key) => {
+   let connection = ddpClient.connection.collections.rocketchat_subscription;
+   if(connection)
+   {
+   		let results = ddpClient.connection.collections.rocketchat_subscription.find({ name:{$regex:'.*'+key+'.*'}}, {fields: {rid:1, name: 1,alert:1,unread:1 } });
+   		if(results&&results.length>0)
+   		{
+			return results;
+   		}
+   }
+   return null;
+};
+ListsDB.unsubscribeLists = () => {
+  return ddpClient.unsubscribe('privateHistory', [])
+    .then(() => {
+      return ddpClient.unsubscribe('subscription', []);
+    });
+};
 ListsDB.SaveListdetail = () => {
    let connection = ddpClient.connection.collections.rocketchat_subscription;
    if(connection)

@@ -4,11 +4,12 @@ let {AsyncStorage} = require("react-native");
 let {Platform} = require("react-native");
 
 var myClass = require("NativeModules").MyClass;
-let ip = "54.222.159.156";
+let ip = "10.0.0.78";//"54.222.159.156";
 if(Platform.OS === 'ios')
 {
 	ip = myClass.address;
 }
+
 //console.log(myClass.address);
 let ddpClient = new DDPClient({
   // All properties optional, defaults shown
@@ -27,6 +28,7 @@ let ddpClient = new DDPClient({
 let ddp = {};
 ddp.connection = ddpClient;
 ddp.error = false;
+let subscribeId = {};
 
 ddp.initialize = () => {
   return new Promise(function(resolve, reject) {
@@ -44,7 +46,7 @@ ddp.initialize = () => {
 	  }
       if (wasReconnect) {
         console.log('Reestablishment of a connection.');
-        require('react-native').NativeAppEventEmitter.emit('reconnection','');
+        require('react-native').NativeAppEventEmitter.emit('wasReconnect','');
       }
 
       console.log('connected!');
@@ -64,19 +66,22 @@ ddp.subscribe = function(pubName, params) {
     console.warn('Params must be passed as an array to ddp.subscribe');
   }
   return new Promise(function(resolve, reject) {
-    ddpClient.subscribe(pubName, params, function () {
+    var id = ddpClient.subscribe(pubName, params, function () {
       resolve(true);
     });
+    //console.log('sub id= ' + id);
+    subscribeId[pubName] = id;
+    //console.log(subscribeId);
   });
 };
 
-ddp.unsubscribe = function(params) {
-  params = params || undefined;
-  if (params) {
-    console.warn('Params must be passed as an array to ddp.subscribe');
+ddp.unsubscribe = function(pubName) {
+  pubName = pubName || undefined;
+  if (!pubName) {
+    console.warn('pubName must be passed  to ddp.unsubscribe');
   }
   return new Promise(function(resolve, reject) {
-    ddpClient.unsubscribe(params);
+    ddpClient.unsubscribe(parseInt(subscribeId.pubName));
   });
 };
 

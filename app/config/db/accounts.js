@@ -9,7 +9,7 @@ let EventEmitter = require('event-emitter');
 
 let loginName = null;
 
-let login = (loginObj, resolve, reject) => {
+let login = (loginObj, resolve, reject,recon) => {
   let obj = { loggedIn: false};
   let loginParams = {};
   if (loginObj.email && loginObj.password) {
@@ -53,7 +53,7 @@ let login = (loginObj, resolve, reject) => {
       obj.userId = userId;
 	  //Cookie.save('rc_uid',userId);
 	  //Cookie.save('rc_token',res.token.toString());
-      Accounts.emitter.emit('loggedIn', userId);
+      if(!recon) Accounts.emitter.emit('loggedIn', userId);
 
       resolve(obj);
     } else {
@@ -114,7 +114,19 @@ Accounts.signIn = (email, password) => {
     login({email: email, password: password}, resolve, reject);
   });
 };
-
+Accounts.ReSignInWithToken = () => {
+  return new Promise((resolve, reject) => {
+    // Check if we have a loginToken in persistent client storage
+    AsyncStorage.getItem('loginToken')
+      .then((token) => {
+        if (token) {
+          login({resume: token}, resolve, reject,true);
+        } else {
+          resolve({loggedIn: false});
+        }
+      });
+  });
+};
 Accounts.signInWithToken = () => {
   return new Promise((resolve, reject) => {
     // Check if we have a loginToken in persistent client storage

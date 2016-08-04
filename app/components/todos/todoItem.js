@@ -27,6 +27,9 @@ import Lightbox from 'react-native-lightbox';
 import icon from '../../images/fa-cog/fa-cog.png';
 import copy from '../../images/fa-copy-icon/fa-copy-icon.png';
 
+//import NativeModules from 'react-native';
+var DocumentController = require("NativeModules").DocumentController;
+
 var myClass = require("NativeModules").MyClass;
 //var color = ['.1','.2','.3','.4','.5','.6'];
 export default React.createClass({
@@ -37,7 +40,8 @@ export default React.createClass({
     path:React.PropTypes.string,
     navigator:React.PropTypes.object.isRequired,
     user:React.PropTypes.object.isRequired,
-    update:React.PropTypes.object.isRequired
+    update:React.PropTypes.object.isRequired,
+    listId:React.PropTypes.string
   },
   color:['.1','.2','.3','.4','.5','.6'],
   // Initial State
@@ -120,22 +124,62 @@ export default React.createClass({
 	let file = todo.attachments;
 	if(file && file.length > 0)
 	{
-		//console.log(todo.attachments);'http://img1b.xgo-img.com.cn/pics/2783/a2782717.jpg'
 		let address = TodosDB.hostAddress();
 		let att = file[0];
-		//console.log(TodosDB.hostAddress()+att.image_url);
-		//console.log(this.props.user);
 		if(att.image_url)
 		{
 			return (
+			<TouchableHighlight
+      			underlayColor='rgba(0, 0, 0, 0)'
+        		onPress={() => {
+        		if(require('react-native').Platform.OS === 'ios')
+        		{
+        			this.replaceScene();
+        		}
+        		else
+        		{
+        			this.handlePressImage(address+att.image_url)
+        		}
+        	}}>
+        	<View>
         	<Image
-          		source={{uri:TodosDB.hostAddress()+att.image_url+'?rc_token='+this.props.user.token+'&rc_uid='+this.props.user._id}}
+          		source={{uri:address+att.image_url+'?rc_token='+this.props.user.token+'&rc_uid='+this.props.user._id}}
           		style={styles.image}
           	/>
-    		);
+        	</View>
+        	</TouchableHighlight>);
     	}
     	else
     	{
+    		if(att.title_link)
+    		{
+    			return (
+    			<TouchableHighlight
+      				underlayColor='rgba(0, 0, 0, 0)'
+        			onPress={() => {
+        				if(require('react-native').Platform.OS === 'ios')
+        				{
+        					myClass.loadFile({url:address+att.title_link,token:'rc_token='+this.props.user.token+'; rc_uid='+this.props.user._id,rid:this.props.listId,fid:todo.file._id},
+        					(error,result)=>{
+        					if(error){Alert.alert('',result);}
+        					else
+        					{
+        						//DocumentController.show({file: result});
+							}
+						});
+						}
+						else
+						{
+							myClass.loadFile(address+att.title_link,'?rc_token='+this.props.user.token+'&rc_uid='+this.props.user._id,this.props.listId,todo.file._id,
+							(msg)=>{
+								Alert.alert('',msg,[{text:'OK',onPress:()=>{myClass.beginFile((msg)=>{Alert.alert('',msg);})}}]);
+							});
+							
+						}
+        			}}>
+      			<Text style={{color:'blue',fontWeight:'bold',marginLeft:15,textDecorationLine:'underline'}}>{att.title}</Text>
+      			</TouchableHighlight>);
+    		}
     		return null;
     	}
     }
@@ -933,23 +977,7 @@ export default React.createClass({
       	</Text>
       	{this.toolImage(todo)}
       </View>
-      <TouchableHighlight
-      		underlayColor='rgba(0, 0, 0, 0)'
-        	onPress={() => {
-        		if(require('react-native').Platform.OS === 'ios')
-        		{
-        			this.replaceScene();
-        		}
-        		else
-        		{
-        			this.handlePressImage(url)
-        		}
-        	}}
-      >
-        <View>
-      		{this.renderImage()}
-		</View>
-      </TouchableHighlight>
+      {this.renderImage()}
       	<TouchableHighlight
       		underlayColor='rgba(0, 0, 0, 0)'
         	onPress={() => this.handlePress(todo)}

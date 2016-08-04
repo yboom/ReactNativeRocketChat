@@ -75,7 +75,7 @@ TodosDB.addTodos = (todo, rid,u) => {
     u:u
   };
 
-  return ddpClient.call('sendMessage', [todoObj]);
+  ddpClient.call('sendMessage', [todoObj]);
 };
 
 TodosDB.addTodo = (todo, rid,u) => {

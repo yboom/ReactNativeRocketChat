@@ -6,6 +6,8 @@ import React, {
   PixelRatio,
   TouchableHighlight,
   Image,
+  TextInput,
+  Dimensions,
 } from 'react-native';
 let {AsyncStorage} = React;//require('react-native');
 let {NativeAppEventEmitter} = React;
@@ -19,6 +21,7 @@ import Accounts from '../../config/db/accounts';
 
 import chevronRight from '../../images/fa-chevron-right/fa-chevron-right.png';
 import lock from '../../images/fa-lock-icon/lock.png';
+import searchIcon from '../../images/fa-search-icon/fa-search-icon.png';
 
 import SendTodos from '../todos/sendtodos';
 import TodosDB from '../../config/db/todos';
@@ -33,12 +36,16 @@ export default React.createClass({
   net_work:null,
   connection:false,
   reconnection:null,
+  currentList:[],
+  searchStatue:false,
+  beginEdit:false,
   // Initial Value (State and Props)
   getInitialState() {
     return {
       lists: [],
       user: {},
-      subs:{}
+      subs:{},
+      key:''
     }
   },
 	//NativeDeviceEventEmitter.emit('name',value);
@@ -48,17 +55,26 @@ export default React.createClass({
   	{
   		AsyncStorage.getItem('subscription',(error,result)=>{
   			this.setState({subs: JSON.parse(result)});
-  			AsyncStorage.getItem('room',(error,result)=>{this.setState({lists: JSON.parse(result)});});
+  			AsyncStorage.getItem('room',(error,result)=>{
+  				this.setState({lists: JSON.parse(result)});
+  				this.currentList=JSON.parse(result);
+  			});
   		});
   		
   	}
   	else
   	{
+  		console.log('getRoomList');
     	ListsDB.subscribeToLists()
       	.then(() => {
         	ListsDB.observeLists((results) => {
         	console.log('lists');
-          		if(results.length > 0) this.setState({lists: results});
+        	//console.log(results);
+          		if(results.length > 0) 
+          		{ 
+          			this.setState({lists: results});
+          			this.currentList = results;
+          		}
         	});
       	})
       	.catch((err) => {
@@ -78,9 +94,9 @@ export default React.createClass({
        }
   },
   componentWillMount() {
-  	this.reconnection = NativeAppEventEmitter.addListener('reconnection',(body)=>{
+  	this.reconnection = NativeAppEventEmitter.addListener('wasReconnect',(body)=>{
   		if(this.connection) this.connection = false;
-  		Accounts.signInWithToken();	
+  		Accounts.ReSignInWithToken();	
   	});
   	this.refreshRoom = NativeAppEventEmitter.addListener('refreshRoom', (body)=>{
   		console.log('room');
@@ -90,12 +106,13 @@ export default React.createClass({
   	  	  .then(()=>{
   			TodosDB.ddpConnection()
       			.then(() => {
-        	 		Accounts.signInWithToken()
-        	 		 .then(() =>{
-        	 		 	this.getRoomList();
-        	 		 });
+        	 		Accounts.signInWithToken();
       			});
       		 });
+       	}
+       	else
+       	{
+       		this.getRoomList();
        	}
   	});
   	this.appState = NativeDeviceEventEmitter.addListener('appStateDidChange',(body)=>{
@@ -120,17 +137,24 @@ export default React.createClass({
   			this.conection = false;
   		}
   	});
-	this.getRoomList();
-	
+
     Accounts.userId.then((userId) => {
       if (userId) {
         this.setState({user: {_id: userId}});
+        this.getRoomList();
       }
     });
 
     Accounts.emitter.on('loggedIn', (userId) => {
       if (userId) {
+      console.log('logedId');
         this.setState({user: {_id: userId}});
+        let userName = Accounts.name();
+        if(userName)
+        {
+        	this.setState({user: {_id: this.state.user._id,name:userName}});
+        }
+        this.getRoomList();
       }
     });
 	Accounts.userName.then((userName) => {
@@ -138,8 +162,11 @@ export default React.createClass({
         this.setState({user: {_id: this.state.user._id,name:userName}});
       }
     });
+    
     Accounts.emitter.on('loggedOut', () => {
+      ListsDB.unsubscribeLists()
       this.setState({user: {}});
+      this.setState({lists:[]});
     });
   },
   componentWillUnmount() {
@@ -147,28 +174,6 @@ export default React.createClass({
     this.appState.remove();
     this.net_work.remove();
     this.reconnection.remove();
-  },
-  componentDidUpdate(){
-  	if(!ListsDB.connectionError())
-  	{
-  		if(!this.state.lists || (this.state.lists&&this.state.lists.length==0))
-  		{
-  		Accounts.emitter.on('loggedIn', (userId) => {
-      		if (userId) {
-        		this.setState({user: {_id: userId}});
-        		ListsDB.subscribeToLists()
-      			.then(() => {
-        			ListsDB.observeLists((results) => {
-          			this.setState({lists: results});
-        			});
-      			})
-      			.catch((err) => {
-        			console.log('Error: ', err);
-      			});
-      		}
-    	});
-  		}
-  	}
   },
   // Event Handlers
   sendMessage(list,result)
@@ -371,25 +376,85 @@ export default React.createClass({
         if(detail && detail.name) title = title + detail.name
         if(detail&&detail.alert)
         {
-        	return (
-  			<Text style={styles.alertstyle}>{title}</Text>
-  			);
+        	if(this.searchStatue)
+        	{
+        		let local = title.indexOf(this.state.key);
+        		let begin = title.substr(0,local);
+        		let end = title.substr(local+this.state.key.length);
+        		return (
+  					<Text style={styles.alertstyle}>
+  					{begin}
+  					<Text style={{color:'red',fontWeight:'bold'}}>
+  						{this.state.key}
+  					</Text>
+  					{end}
+  					</Text>);
+        	}
+        	else
+        	{
+        		return (<Text style={styles.alertstyle}>{title}</Text>);
+  			}
         }
-        return (
-  			<Text>{title}</Text>
-  		);
+        if(this.searchStatue)
+        {
+        	let local = title.indexOf(this.state.key);
+        	let begin = title.substr(0,local);
+        	let end = title.substr(local+this.state.key.length);
+        	return (
+  				<Text>
+  				{begin}
+  				<Text style={{color:'red',fontWeight:'bold'}}>
+  					{this.state.key}
+  				</Text>
+  				{end}
+  				</Text>);
+        }
+        else
+        {
+        	return (<Text>{title}</Text>);
+  		}
   	}
   	else
   	{
-  		if(detail && detail.alert)
+  		if(this.searchStatue)
         {
-        	return (
-  			<Text style={styles.alertstyle}>{list.name}</Text>
-  			);
+        	let title = list.name
+        	let local = title.indexOf(this.state.key);
+        	let begin = title.substr(0,local);
+        	let end = title.substr(local+this.state.key.length);
+        	if(detail && detail.alert)
+        	{
+        		return (
+  					<Text style={styles.alertstyle}>
+  						{begin}
+  					<Text style={{color:'red',fontWeight:'bold'}}>
+  						{this.state.key}
+  					</Text>
+  						{end}
+  					</Text>
+  				);
+  			}
+  			else
+  			{
+  				return (
+  					<Text>
+  						{begin}
+  					<Text style={{color:'red',fontWeight:'bold'}}>
+  						{this.state.key}
+  					</Text>
+  						{end}
+  					</Text>
+  				);
+  			}
         }
-  		return (
-  			<Text>{list.name}</Text>
-  		);
+        else
+        {
+  			if(detail && detail.alert)
+        	{
+        		return (<Text style={styles.alertstyle}>{list.name}</Text>);
+        	}
+  			return (<Text>{list.name}</Text>);
+  		}
   	}
   },
   rendermsgs(list,i)
@@ -414,6 +479,55 @@ export default React.createClass({
   		</View>);
   	}
   	return null;
+  },
+  handleSubmit() {
+    if (this.state.key.length) 
+    {
+    	let results = [];
+    	if(ListsDB.connectionError())
+    	{
+    		for(var i=0;i<this.currentList.length;i++)
+   			{
+   				let list = this.currentList[i];
+   				let value = this.state.subs[list._id];
+   				if(value)
+   				{
+   					if(value.name.indexOf(this.state.key) > -1)
+   					{
+   						results.push(list);
+   					}
+   				}
+   			}
+    	}
+    	else
+    	{
+      		let result = ListsDB.findList(this.state.key);
+      		if(result)
+      		{
+      			for(var i=0;i<this.currentList.length;i++)
+   				{
+   					let list = this.currentList[i];
+   					for(var j=0;j<result.length;j++)
+   					{
+   						let value = result[j];
+   						if(value.rid == list._id)
+   						{
+   							results.push(list);
+   							break;
+   						}
+   					}
+   				}
+   			}
+        }
+        this.searchStatue = true;
+        this.setState({lists:results});
+    }
+    else
+  	{
+  		this.searchStatue = false;
+  		this.beginEdit = false;
+  		this.setState({lists:this.currentList});
+  	}
   },
   // Sub-render
   renderItems() {
@@ -444,19 +558,49 @@ export default React.createClass({
       )
     });
   },
-
   // Component Render
   render() {
-  if(ListsDB.connectionError()&&!this.state.lists)
-  {
-  	require('react-native').Alert.alert('','Connection Server Failed!');
-  	return null;
-  }
+  	if(ListsDB.connectionError()&&!this.state.lists)
+  	{
+  		require('react-native').Alert.alert('','Connection Server Failed!');
+  		return null;
+  	}
+  	let sytlesInput=[];
+  	sytlesInput.push(styles.input);
+  	if(require('react-native').Platform.OS === 'ios')
+  	{
+  		sytlesInput.push(styles.inputIOS);
+  	}
+  	else
+  	{
+  		sytlesInput.push(styles.inputAndroid);
+  	}
+  	//console.log(Dimensions.get('window'));
     return (
-      <ScrollView>
+    <View style={{height:Dimensions.get('window').height-64}}>
+     <View>
+     	<View style={styles.search}>
+     	<Image
+            source={searchIcon}
+            style={styles.searchIcon}
+            />
+          <TextInput
+            ref='input'
+            style={sytlesInput}
+            placeholder="Search"
+            returnKeyType='search'
+            onSubmitEditing={this.handleSubmit}
+            onFocus={()=>{if(!this.beginEdit){this.beginEdit=true;this.setState({lists:[]})}}}
+            onChangeText={(key) => {this.setState({key:key.replace(/(^\s*) | (\s*$)/g,'')});this.searchStatue = false;}}
+            />
+        </View>
+        <View style={styles.border} />
+     </View>
+      <ScrollView >
       	<ListItemAdd />
         {this.renderItems()}
       </ScrollView>
+    </View>
     );
   }
 });
@@ -467,6 +611,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1
+  },
+  search: {
+    padding: 15,
+    flexDirection: 'row',
+    flex: 1,
+  },
+  input: {
+    flex: 1,
+  },
+  inputIOS: {
+    height: 20
+  },
+  inputAndroid:{
+  	height: 37
+  },
+  searchIcon: {
+    marginRight: 10,
+    tintColor: 'rgba(0, 0, 0, 0.35)'
   },
   border: {
     height: 1 / PixelRatio.get(),
