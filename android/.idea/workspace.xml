@@ -57,62 +57,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/reactnativerocketchat/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="86" column="14" selection-start-line="86" selection-start-column="14" selection-end-line="86" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Notification.java" pinned="false" current-in-tab="false">
-        <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/app/Notification.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1396" column="47" selection-start-line="1396" selection-start-column="47" selection-end-line="1396" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReactWebViewManager.java" pinned="false" current-in-tab="true">
-        <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/views/webview/ReactWebViewManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.12823834">
-              <caret line="25" column="71" selection-start-line="25" selection-start-column="71" selection-end-line="25" selection-end-column="71" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UIManagerModule.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/uimanager/UIManagerModule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="355" column="35" selection-start-line="355" selection-start-column="35" selection-end-line="355" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UIImplementation.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/uimanager/UIImplementation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="537" column="26" selection-start-line="537" selection-start-column="26" selection-end-line="537" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/settings.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="104" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="104" />
-              <folding />
+            <state vertical-scroll-proportion="0.16450778">
+              <caret line="195" column="17" selection-start-line="195" selection-start-column="17" selection-end-line="195" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3930#3931#0" expanded="true" />
+                <element signature="e#3972#3973#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2519,6 +2473,7 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/settings.gradle" />
         <option value="$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/views/webview/ReactWebViewManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/reactnativerocketchat/MainActivity.java" />
       </list>
     </option>
@@ -2554,12 +2509,33 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Production">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="android" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2607,11 +2583,105 @@
               <option name="myItemId" value="classes.jar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="facebook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react-native-0.22.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classes.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="facebook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react-native-0.22.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classes.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="facebook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react-native-0.22.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classes.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="facebook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bridge" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2688,27 +2758,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="reactnativerocketchat" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Production">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -3065,16 +3114,16 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.48821798" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19354838" sideWeight="0.47349042" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19354838" sideWeight="0.4706284" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24321267" sideWeight="0.49558175" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21719457" sideWeight="0.5265096" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19354838" sideWeight="0.52937156" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23155738" sideWeight="0.515121" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.5176731" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2496318" sideWeight="0.5059022" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.49410897" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32862905" sideWeight="0.49410897" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.4970545" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2496318" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -3094,14 +3143,14 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19354838" sideWeight="0.47349042" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21719457" sideWeight="0.5265096" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2496318" sideWeight="0.5059022" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.5176731" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.4970545" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.5176731" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2496318" sideWeight="0.5059022" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.4970545" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23155738" sideWeight="0.48375" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.48821798" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -3155,238 +3204,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="13" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/net/ConnectivityManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.8619469">
-          <caret line="99" column="31" selection-start-line="99" selection-start-column="31" selection-end-line="99" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.4690266">
-          <caret line="15702" column="0" selection-start-line="15702" selection-start-column="0" selection-end-line="15702" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/util/Arrays.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33283132">
-          <caret line="153" column="30" selection-start-line="153" selection-start-column="30" selection-end-line="153" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/widget/ImageView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31024095">
-          <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.fresco/drawee/0.8.1/52ad2393e92426a182609ccf741b266b654a5edf/drawee-0.8.1-sources.jar!/com/facebook/drawee/view/DraweeView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3448795">
-          <caret line="43" column="64" selection-start-line="43" selection-start-column="64" selection-end-line="43" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.fresco/drawee/0.8.1/52ad2393e92426a182609ccf741b266b654a5edf/drawee-0.8.1-sources.jar!/com/facebook/drawee/view/GenericDraweeView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5873494">
-          <caret line="59" column="46" selection-start-line="59" selection-start-column="46" selection-end-line="59" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.288854">
-          <caret line="100" column="16" selection-start-line="100" selection-start-column="16" selection-end-line="100" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/util/Collections.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33290157">
-          <caret line="2421" column="36" selection-start-line="2421" selection-start-column="36" selection-end-line="2421" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/webkit/WebViewClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.6826425">
-          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/react-native-image-zoom.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4093264">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29145077">
-          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/uimanager/annotations/ReactProp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45595855">
-          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/Systrace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19430052">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/WritableArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13601036">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/modules/netinfo/NetInfoModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.5544043">
-          <caret line="167" column="20" selection-start-line="167" selection-start-column="20" selection-end-line="167" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/modules/systeminfo/AndroidInfoModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17487046">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/modules/appstate/AppStateModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9132124">
-          <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReactMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/views/webview/WebViewConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReactContextBaseJavaModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19430052">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/lang/Override.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29145077">
-          <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/common/MapBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/io/PrintStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33290157">
-          <caret line="508" column="16" selection-start-line="508" selection-start-column="16" selection-end-line="508" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReadableMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15544042">
-          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="104" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="104" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/ReactPackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.369171">
-          <caret line="32" column="17" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/os/Parcelable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6515544">
-          <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/app/Notification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1396" column="47" selection-start-line="1396" selection-start-column="47" selection-end-line="1396" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/ImageEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.37953368">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/ViewManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13601036">
-          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/extras/android/m2repository/com/android/support/support-v4/23.0.1/support-v4-23.0.1-sources.jar!/android/support/v4/view/ViewPager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33290157">
-          <caret line="90" column="13" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/viewpager/ReactViewPager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11658031">
-          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/uimanager/BaseViewManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21373057">
@@ -3423,13 +3245,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/ReactImageZoom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31088084">
-          <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/views/image/ImageResizeMode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3448,13 +3263,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33290157">
           <caret line="974" column="16" selection-start-line="974" selection-start-column="16" selection-end-line="974" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReadableArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15544042">
-          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -3482,26 +3290,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/uimanager/UIImplementation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="537" column="26" selection-start-line="537" selection-start-column="26" selection-end-line="537" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/ReactActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13601036">
           <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/uimanager/UIManagerModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="355" column="35" selection-start-line="355" selection-start-column="35" selection-end-line="355" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3512,19 +3304,473 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/reactnativerocketchat/MainActivity.java">
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/app/Notification.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="86" column="14" selection-start-line="86" selection-start-column="14" selection-end-line="86" selection-end-column="14" />
+          <caret line="1396" column="47" selection-start-line="1396" selection-start-column="47" selection-end-line="1396" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#217447#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#23994#23995#0" expanded="false" />
+            <element signature="e#24026#24027#0" expanded="false" />
+            <element signature="e#24680#24681#0" expanded="false" />
+            <element signature="e#24711#24712#0" expanded="false" />
+            <element signature="e#35588#35589#0" expanded="false" />
+            <element signature="e#35626#35627#0" expanded="false" />
+            <element signature="e#35849#35850#0" expanded="false" />
+            <element signature="e#35893#35894#0" expanded="false" />
+            <element signature="e#38833#38834#0" expanded="false" />
+            <element signature="e#38879#38880#0" expanded="false" />
+            <element signature="e#40714#40715#0" expanded="false" />
+            <element signature="e#40746#40747#0" expanded="false" />
+            <element signature="e#41563#41564#0" expanded="false" />
+            <element signature="e#41616#41617#0" expanded="false" />
+            <element signature="e#41665#41666#0" expanded="false" />
+            <element signature="e#41720#41721#0" expanded="false" />
+            <element signature="e#47599#47600#0" expanded="false" />
+            <element signature="e#47676#47677#0" expanded="false" />
+            <element signature="e#48827#48828#0" expanded="false" />
+            <element signature="e#48882#48883#0" expanded="false" />
+            <element signature="e#49692#49693#0" expanded="false" />
+            <element signature="e#49744#49745#0" expanded="false" />
+            <element signature="e#50488#50489#0" expanded="false" />
+            <element signature="e#50539#50540#0" expanded="false" />
+            <element signature="e#60106#60107#0" expanded="false" />
+            <element signature="e#60130#60131#0" expanded="false" />
+            <element signature="e#63800#63801#0" expanded="false" />
+            <element signature="e#63855#63856#0" expanded="false" />
+            <element signature="e#63915#63916#0" expanded="false" />
+            <element signature="e#63968#63969#0" expanded="false" />
+            <element signature="e#69639#69640#0" expanded="false" />
+            <element signature="e#69672#69673#0" expanded="false" />
+            <element signature="e#69803#69804#0" expanded="false" />
+            <element signature="e#69836#69837#0" expanded="false" />
+            <element signature="e#70025#70026#0" expanded="false" />
+            <element signature="e#70058#70059#0" expanded="false" />
+            <element signature="e#70558#70559#0" expanded="false" />
+            <element signature="e#70635#70636#0" expanded="false" />
+            <element signature="e#113848#113849#0" expanded="false" />
+            <element signature="e#113902#113903#0" expanded="false" />
+            <element signature="e#118887#118888#0" expanded="false" />
+            <element signature="e#118936#118937#0" expanded="false" />
+            <element signature="e#136805#136806#0" expanded="false" />
+            <element signature="e#136843#136844#0" expanded="false" />
+            <element signature="e#138240#138241#0" expanded="false" />
+            <element signature="e#138315#138316#0" expanded="false" />
+            <element signature="e#138881#138882#0" expanded="false" />
+            <element signature="e#138949#138950#0" expanded="false" />
+            <element signature="e#139758#139759#0" expanded="false" />
+            <element signature="e#139806#139807#0" expanded="false" />
+            <element signature="e#145000#145001#0" expanded="false" />
+            <element signature="e#145035#145036#0" expanded="false" />
+            <element signature="e#145985#145986#0" expanded="false" />
+            <element signature="e#146028#146029#0" expanded="false" />
+            <element signature="e#150869#150870#0" expanded="false" />
+            <element signature="e#150912#150913#0" expanded="false" />
+            <element signature="e#154982#154983#0" expanded="false" />
+            <element signature="e#155025#155026#0" expanded="false" />
+            <element signature="e#161374#161375#0" expanded="false" />
+            <element signature="e#161417#161418#0" expanded="false" />
+            <element signature="e#168196#168197#0" expanded="false" />
+            <element signature="e#168232#168233#0" expanded="false" />
+            <element signature="e#182760#182761#0" expanded="false" />
+            <element signature="e#182799#182800#0" expanded="false" />
+            <element signature="e#184826#184827#0" expanded="false" />
+            <element signature="e#184871#184872#0" expanded="false" />
+            <element signature="e#186834#186835#0" expanded="false" />
+            <element signature="e#186871#186872#0" expanded="false" />
+            <element signature="e#187861#187862#0" expanded="false" />
+            <element signature="e#187903#187904#0" expanded="false" />
+            <element signature="e#188262#188263#0" expanded="false" />
+            <element signature="e#188305#188306#0" expanded="false" />
+            <element signature="e#189171#189172#0" expanded="false" />
+            <element signature="e#189221#189222#0" expanded="false" />
+            <element signature="e#191054#191055#0" expanded="false" />
+            <element signature="e#191104#191105#0" expanded="false" />
+            <element signature="e#191983#191984#0" expanded="false" />
+            <element signature="e#192022#192023#0" expanded="false" />
+            <element signature="e#193304#193305#0" expanded="false" />
+            <element signature="e#193352#193353#0" expanded="false" />
+            <element signature="e#194300#194301#0" expanded="false" />
+            <element signature="e#194351#194352#0" expanded="false" />
+            <element signature="e#195179#195180#0" expanded="false" />
+            <element signature="e#195250#195251#0" expanded="false" />
+            <element signature="e#197049#197050#0" expanded="false" />
+            <element signature="e#197115#197116#0" expanded="false" />
+            <element signature="e#200222#200223#0" expanded="false" />
+            <element signature="e#200271#200272#0" expanded="false" />
+            <element signature="e#204602#204603#0" expanded="false" />
+            <element signature="e#204639#204640#0" expanded="false" />
+            <element signature="e#205449#205450#0" expanded="false" />
+            <element signature="e#205490#205491#0" expanded="false" />
+            <element signature="e#206142#206143#0" expanded="false" />
+            <element signature="e#206192#206193#0" expanded="false" />
+            <element signature="e#207884#207885#0" expanded="false" />
+            <element signature="e#207932#207933#0" expanded="false" />
+            <element signature="e#208167#208168#0" expanded="false" />
+            <element signature="e#208218#208219#0" expanded="false" />
+            <element signature="e#208431#208432#0" expanded="false" />
+            <element signature="e#208489#208490#0" expanded="false" />
+            <element signature="e#208727#208728#0" expanded="false" />
+            <element signature="e#208784#208785#0" expanded="false" />
+            <element signature="e#208923#208924#0" expanded="false" />
+            <element signature="e#208975#208976#0" expanded="false" />
+            <element signature="e#209339#209340#0" expanded="false" />
+            <element signature="e#209394#209395#0" expanded="false" />
+            <element signature="e#213033#213034#0" expanded="false" />
+            <element signature="e#213084#213085#0" expanded="false" />
+            <element signature="e#216983#216984#0" expanded="false" />
+            <element signature="e#217020#217021#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/util/Dictionary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.78756475">
+          <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/util/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29145077">
+          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/uimanager/UIImplementation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="537" column="26" selection-start-line="537" selection-start-column="26" selection-end-line="537" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#308#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#20764#20765#0" expanded="false" />
+            <element signature="e#20816#20817#0" expanded="false" />
+            <element signature="e#21962#21963#0" expanded="false" />
+            <element signature="e#22010#22011#0" expanded="false" />
+            <element signature="e#22041#22042#0" expanded="false" />
+            <element signature="e#22088#22089#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/uimanager/UIManagerModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="403" column="11" selection-start-line="403" selection-start-column="11" selection-end-line="403" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#17344#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3697#3698#0" expanded="false" />
+            <element signature="e#3727#3728#0" expanded="false" />
+            <element signature="e#3786#3787#0" expanded="false" />
+            <element signature="e#3819#3820#0" expanded="false" />
+            <element signature="e#3863#3864#0" expanded="false" />
+            <element signature="e#3905#3906#0" expanded="false" />
+            <element signature="e#3948#3949#0" expanded="false" />
+            <element signature="e#3989#3990#0" expanded="false" />
+            <element signature="e#4034#4035#0" expanded="false" />
+            <element signature="e#4077#4078#0" expanded="false" />
+            <element signature="e#6438#6439#0" expanded="false" />
+            <element signature="e#6518#6519#0" expanded="false" />
+            <element signature="e#6647#6648#0" expanded="false" />
+            <element signature="e#6702#6703#0" expanded="false" />
+            <element signature="e#13104#13105#0" expanded="false" />
+            <element signature="e#13150#13151#0" expanded="false" />
+            <element signature="e#17162#17163#0" expanded="false" />
+            <element signature="e#17195#17196#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReadableArray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18808778">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReadableMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18808778">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/views/webview/ReactWebViewManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12823834">
-          <caret line="25" column="71" selection-start-line="25" selection-start-column="71" selection-end-line="25" selection-end-column="71" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="289" column="45" selection-start-line="289" selection-start-column="45" selection-end-line="289" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#308#0" expanded="false" />
+            <element signature="e#6966#6967#0" expanded="false" />
+            <element signature="e#6999#7000#0" expanded="false" />
+            <element signature="e#7195#7196#0" expanded="false" />
+            <element signature="e#7237#7238#0" expanded="false" />
+            <element signature="e#7299#7300#0" expanded="false" />
+            <element signature="e#7328#7329#0" expanded="false" />
+            <element signature="e#7899#7900#0" expanded="false" />
+            <element signature="e#7939#7940#0" expanded="false" />
+            <element signature="e#7980#7981#0" expanded="false" />
+            <element signature="e#8008#8009#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/lang/Throwable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33290157">
+          <caret line="234" column="16" selection-start-line="234" selection-start-column="16" selection-end-line="234" selection-end-column="16" />
+          <folding>
+            <element signature="e#8969#8970#0" expanded="false" />
+            <element signature="e#9012#9013#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.0">
+          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/lang/reflect/Array.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13601036">
+          <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.03626943">
+          <caret line="1390" column="20" selection-start-line="1390" selection-start-column="20" selection-end-line="1390" selection-end-column="20" />
+          <folding>
+            <element signature="e#50307#50308#0" expanded="true" />
+            <element signature="e#50357#50358#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/net/URLDecoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="54" selection-start-line="44" selection-start-column="54" selection-end-line="44" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/nio/charset/Charset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="552" column="26" selection-start-line="552" selection-start-column="26" selection-end-line="552" selection-end-column="26" />
+          <folding>
+            <element signature="e#22980#22981#0" expanded="false" />
+            <element signature="e#23018#23019#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/net/HttpURLConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33290157">
+          <caret line="265" column="22" selection-start-line="265" selection-start-column="22" selection-end-line="265" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4300518">
+          <caret line="371" column="18" selection-start-line="371" selection-start-column="18" selection-end-line="371" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/net/Uri.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="454" column="57" selection-start-line="454" selection-start-column="57" selection-end-line="454" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/net/URLConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33290157">
+          <caret line="586" column="23" selection-start-line="586" selection-start-column="23" selection-end-line="586" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/android/os/Environment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33290157">
+          <caret line="334" column="23" selection-start-line="334" selection-start-column="23" selection-end-line="334" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/io/OutputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33290157">
+          <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/MacintoshHD/Users/yuxianshi/book/eclipse/android-sdk-macosx/sources/android-23/java/net/URL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.4676166">
+          <caret line="477" column="25" selection-start-line="477" selection-start-column="25" selection-end-line="477" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/viewpager/PageScrollEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33031088">
+          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/viewpager/PageScrollStateChangedEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27202073">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/viewpager/PageSelectedEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41709843">
+          <caret line="26" column="6" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/viewpager/ReactViewPager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11658031">
+          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/viewpager/ReactViewPagerManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20336787">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/ViewManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13601036">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/ResourceDrawableIdHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11658031">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/ReactImageZoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31088084">
+          <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/src/main/java/com/image/zoom/ImageEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.36010364">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/NativeModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5738342">
+          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReactContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17487046">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/Callback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29145077">
+          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/JavaJSExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18393782">
+          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReactBridge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.46632123">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/BaseJavaModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.30829015">
+          <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../node_modules/react-native/android/com/facebook/react/react-native/0.22.2/react-native-0.22.2-sources.jar!/com/facebook/react/bridge/ReactContextBaseJavaModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19430052">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/reactnativerocketchat/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16450778">
+          <caret line="195" column="17" selection-start-line="195" selection-start-column="17" selection-end-line="195" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3930#3931#0" expanded="true" />
+            <element signature="e#3972#3973#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
