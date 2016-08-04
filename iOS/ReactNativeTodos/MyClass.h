@@ -10,7 +10,8 @@
 #import "RCTUtils.h"
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
+#import "RCTURLRequestHandler.h"
 
-@interface MyClass : NSObject<RCTBridgeModule>
-
+@interface MyClass : NSObject<RCTBridgeModule,UIDocumentInteractionControllerDelegate>
+-(void)sendOpen:(NSString*)rid;
 @end

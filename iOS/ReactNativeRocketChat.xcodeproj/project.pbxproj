@@ -24,6 +24,8 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8415B3731D057B0A002BDC14 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8415B3721D057B0A002BDC14 /* Settings.bundle */; };
 		846A646D1D1D41E7009D7C95 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846A646C1D1D41E7009D7C95 /* UIKit.framework */; };
+		848533521D4F29B8006BDD45 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 848533481D4F29B8006BDD45 /* Localizable.strings */; };
+		848533551D4F29B8006BDD45 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8485334F1D4F29B8006BDD45 /* Localizable.strings */; };
 		84CB908F1D0D402C001A7433 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 84CB908E1D0D402C001A7433 /* main.jsbundle */; };
 		84CB909B1D0D4040001A7433 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 84CB909A1D0D4040001A7433 /* assets */; };
 		84CB90A11D0D6B19001A7433 /* MyClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CB90A01D0D6B19001A7433 /* MyClass.m */; };
@@ -132,6 +134,8 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8415B3721D057B0A002BDC14 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		846A646C1D1D41E7009D7C95 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		848533491D4F29B8006BDD45 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		848533501D4F29B8006BDD45 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
 		84CB908E1D0D402C001A7433 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = bundle/main.jsbundle; sourceTree = "<group>"; };
 		84CB909A1D0D4040001A7433 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
 		84CB909F1D0D6B19001A7433 /* MyClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyClass.h; path = ReactNativeTodos/MyClass.h; sourceTree = "<group>"; };
@@ -252,6 +256,8 @@
 				84CB90A01D0D6B19001A7433 /* MyClass.m */,
 				8415B3721D057B0A002BDC14 /* Settings.bundle */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				848533451D4F29B8006BDD45 /* en.lproj */,
+				8485334C1D4F29B8006BDD45 /* zh-Hans.lproj */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -322,6 +328,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		848533451D4F29B8006BDD45 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				848533481D4F29B8006BDD45 /* Localizable.strings */,
+			);
+			name = en.lproj;
+			path = ReactNativeTodos/en.lproj;
+			sourceTree = "<group>";
+		};
+		8485334C1D4F29B8006BDD45 /* zh-Hans.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				8485334F1D4F29B8006BDD45 /* Localizable.strings */,
+			);
+			name = "zh-Hans.lproj";
+			path = "ReactNativeTodos/zh-Hans.lproj";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -386,6 +410,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -527,6 +552,8 @@
 			files = (
 				84CB909B1D0D4040001A7433 /* assets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				848533521D4F29B8006BDD45 /* Localizable.strings in Resources */,
+				848533551D4F29B8006BDD45 /* Localizable.strings in Resources */,
 				8415B3731D057B0A002BDC14 /* Settings.bundle in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				84CB908F1D0D402C001A7433 /* main.jsbundle in Resources */,
@@ -591,6 +618,22 @@
 			path = ReactNativeTodos;
 			sourceTree = "<group>";
 		};
+		848533481D4F29B8006BDD45 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				848533491D4F29B8006BDD45 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		8485334F1D4F29B8006BDD45 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				848533501D4F29B8006BDD45 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -641,6 +684,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/Network/**",
 				);
 				INFOPLIST_FILE = ReactNativeTodos/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -659,6 +703,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/Network/**",
 				);
 				INFOPLIST_FILE = ReactNativeTodos/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

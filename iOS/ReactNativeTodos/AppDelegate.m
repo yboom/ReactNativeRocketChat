@@ -8,7 +8,7 @@
  */
 
 #import "AppDelegate.h"
-
+#import "MyClass.h"
 #import "RCTRootView.h"
 
 @implementation AppDelegate
@@ -31,6 +31,14 @@
    * on the same Wi-Fi network.
    */
   //进入工程目录运行react-native bundle --entry-file app/components/main.js --bundle-output ./iOS/bundle/main.jsbundle --platform ios --assets-dest ./iOS/bundle --dev false
+  
+  NSString *jsBundlePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+  jsBundlePath = [jsBundlePath stringByAppendingPathComponent:@"JSBundle"];
+  if(![[NSFileManager defaultManager] fileExistsAtPath:jsBundlePath])
+  {
+    [[NSFileManager defaultManager] createDirectoryAtPath:jsBundlePath withIntermediateDirectories:NO attributes:nil error:nil];
+  }
+  
   NSString *path = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
   NSString *ip = nil;
   if(path)
@@ -54,7 +62,15 @@
     ip = [defaults stringForKey:@"ip_preference"];
     if(!ip||ip.length==0||[ip isEqualToString:@"52.77.199.26"]||[ip isEqualToString:@"54.222.159.156"])
     {
-      jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+      if([[NSFileManager defaultManager] fileExistsAtPath:[jsBundlePath stringByAppendingPathComponent:@"main.jsbundle"]])
+      {
+        jsCodeLocation = [NSURL fileURLWithPath:[jsBundlePath stringByAppendingPathComponent:@"main.jsbundle"]];
+      }
+      else
+      {
+        jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+      }
+      
     }
     else
     {
@@ -82,5 +98,21 @@
   [self.window makeKeyAndVisible];
   return YES;
 }
-
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler{
+  
+  //RCTRootView *rootView = (RCTRootView*)self.window.rootViewController.view;
+  NSString *identifier = [userActivity.userInfo objectForKey:@"kCSSearchableItemActivityIdentifier"];
+  NSString *appId = [[NSBundle mainBundle] bundleIdentifier];
+  if([identifier hasPrefix:appId])
+  {
+    identifier = [identifier stringByReplacingOccurrencesOfString:appId withString:@""];
+  }
+  //[rootView.bridge.eventDispatcher sendAppEventWithName:@"pasteBoard" body:@{@"value":aString}];
+  MyClass *my = [[MyClass alloc] init];
+  [my sendOpen:[[identifier componentsSeparatedByString:@"_"] objectAtIndex:0]];
+  return YES;
+  
+}
+#endif
 @end
