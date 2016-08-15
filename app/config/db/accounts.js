@@ -25,6 +25,7 @@ let login = (loginObj, resolve, reject,recon) => {
     //console.log(err.reason);
       if(err.reason)
   	  {
+  	  	//console.log(err);
   		require('react-native').Alert.alert('',err.reason);
   	  }
       reject(err);
@@ -57,7 +58,18 @@ let login = (loginObj, resolve, reject,recon) => {
 
       resolve(obj);
     } else {
-      resolve(obj);
+      if(err && err.error == 403)
+      {
+      	Accounts.emitter.emit('loggedOut');
+		
+        AsyncStorage.multiRemove(['userId','userName', 'loginToken', 'loginTokenExpires','room']);
+        resolve(true);
+      }
+      else
+      {
+      	resolve(obj);
+      }
+      
     }
   });
 };

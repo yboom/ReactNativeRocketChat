@@ -44,6 +44,7 @@ export default React.createClass({
     listId:React.PropTypes.string
   },
   color:['.1','.2','.3','.4','.5','.6'],
+  urls:[],
   // Initial State
   getInitialState() {
     return {
@@ -369,22 +370,128 @@ export default React.createClass({
     }
   },
   // Event Handlers
-  processHTML(todo)
+  processURLs(listName,id,cur,index)
+  {
+  	let mes = TodosDB.findOneMessage(id);
+  	if(mes)
+  	{
+  		return mes;
+  	}
+  	if(TodosDB.connectionError())
+  	{
+  		AsyncStorage.getItem('message'+id,(error,result)=>{
+  			if(result)
+  			{
+  				result = JSON.parse(result);
+  				result.id = index;
+   				require('react-native').NativeAppEventEmitter.emit('subscribOneMessage',result);
+  			}
+  		});
+  	}
+  	else
+  	{
+  		TodosDB.subscribeToOneTodos(listName,[id])
+   			.then(()=>{
+   				TodosDB.observeOneTodos(id,(result)=>{
+   				//console.log(result);
+   				if(!cur&&result)
+   				{
+   					AsyncStorage.setItem('message'+result._id,JSON.stringify(result));
+   					result.id = index;
+   					require('react-native').NativeAppEventEmitter.emit('subscribOneMessage',result);
+   				}});
+   			})
+   			.catch((err) => {
+        	console.log(err);
+    	});
+    }
+  	return null;
+  },
+  processHTML(todo,cur)
   {
   	if(!todo) todo = this.props.todo;
   	var message = todo.msg;
   	//console.log(message);
+  	var urlHTML = false;
+  	if(todo.urls && todo.urls.length > 0)
+	{
+		let urls = todo.urls;
+		//console.log(urls);
+		if(this.urls.length > 0 && cur) this.urls = [];
+		for(var i=0;i<urls.length;i++)
+		{
+			let url = urls[i];
+			let link = url.url;
+			let host = url.parsedUrl.host;
+			let query = url.parsedUrl.query;
+			if((host == TodosDB.host()) && (query.indexOf('id=') == 0) && (query.indexOf('&') == -1))
+			{
+				urlHTML = true;
+				let id = query.replace('id=','');
+				let listName = url.parsedUrl.pathname.split('/').reverse().shift();
+				//console.log(listName);
+				//console.log(id);
+				let j =i+1;
+				let mes = this.processURLs(listName,id,cur,j);
+				if(mes)
+				{
+					var url = this._renderImageURL(mes);
+					let html = this.processHTML(mes,false);
+					if(html)
+					{
+						if(url)
+						{
+							message = message.replace(link,'['+j+']<br /><div style="margin-left:15px;">'+html+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
+						}
+						else
+						{
+							message = message.replace(link,'['+j+']<br /><div style="margin-left:15px;">'+html+'</div>');
+						}
+					}
+					else
+					{
+						if(url)
+						{
+							message = message.replace(link,'['+j+']<br /><div style="margin-left:15px;">'+mes.msg+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
+						}
+						else
+						{
+							message = message.replace(link,'['+j+']<br /><div style="margin-left:15px;">'+mes.msg+'</div>');
+						}
+					}
+				}
+				else
+				{
+					if(cur) this.urls.push({id:j,url:link,name:listName,_id:id});
+					message = message.replace(link,'<div id="'+id+'">['+j+']</div><br />'+'loading');
+				}
+			}
+		}
+		//console.log(this.urls);
+    }
+    else
+    {
+    	if(cur) this.urls = [];
+    }
   	var msg = message;
   	var html = false;
   	if(message.split("|").length > 2)
   	{
+  		//console.log('split  | ');
   		html = true;
 		lines = message.split(/[\n\r]/);
 		firstLine = true;
-		message = "<head><style>table{margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border-spacing: 0;border-collapse: collapse;\
+		if(cur)
+		{
+			message = "<head><style>table{margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border-spacing: 0;border-collapse: collapse;\
 						border-top-color: #808080;box-sizing:border-box;border-left: 1px solid #aaa; border-top: 1px solid #aaa;}\
 						tr{margin: 0;padding: 0;border: 0;background-color:rgba(160,160,160,0.2);font-size: 100%;vertical-align: baseline;display: table-row;vertical-align: inherit;border-top-color: inherit;border-right-color: inherit;border-bottom-color: inherit;border-left-color: inherit;}\
 						td{border-right: 1px solid #aaa;border-bottom: 1px solid #aaa;padding: 2px 4px;margin: 0;font-size: 100%;vertical-align: baseline;display: table-cell;vertical-align: inherit;}</style></head>";
+		}
+		else
+		{
+			message = "";
+		}
 		for(var i=0;i<lines.length;i++)//_.forEach lines, (line) ->
 		{
 			if (firstLine)
@@ -413,14 +520,22 @@ export default React.createClass({
 	{
 		if (message.split("\t").length > 2)
 		{
+			//console.log('split  t ');
 			html = true;
 			lines = message.split(/[\n\r]/);
 			firstLine = true;
-			message = "<head><style>table{margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border-spacing: 0;border-collapse: collapse;\
+			if(cur)
+			{
+				message = "<head><style>table{margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border-spacing: 0;border-collapse: collapse;\
 						border-top-color: #808080;box-sizing:border-box;border-left: 1px solid #aaa; border-top: 1px solid #aaa;}\
 						tr{margin: 0;padding: 0;border: 0;background-color:rgba(160,160,160,0.2);font-size: 100%;vertical-align: baseline;display: table-row;vertical-align: inherit;border-top-color: inherit;border-right-color: inherit;border-bottom-color: inherit;border-left-color: inherit;}\
 						td{border-right: 1px solid #aaa;border-bottom: 1px solid #aaa;padding: 2px 4px;margin: 0;font-size: 100%;vertical-align: baseline;display: table-cell;vertical-align: inherit;}\
 						</style></head>";
+			}
+			else
+			{
+				message = "";
+			}
 			//for table colspan rowspan
 			merge_cell = false;
 			last = "";
@@ -701,7 +816,7 @@ export default React.createClass({
 			}
 		}
 	}
-			
+		
 	msg = message;
 	if(html || msg.match(/\{\{(.*)\}\}/m) || msg.match(/\[\]/gm) || msg.match(/\[[xX]\]/gm) || msg.match(/^\.\d+\s*/m) || msg.match(/^(.*td>)\.\d+\s*/m) || msg.match(/==(\d+)%/gm))
 	{
@@ -732,6 +847,11 @@ export default React.createClass({
 
 		return msg;
 	}
+	if(!html && urlHTML)
+	{
+		message = message.replace(/\n/gm,'<br/>');
+		return message;
+	}
 	return html;
   },
   handleWebDisplay(todo) {
@@ -754,7 +874,9 @@ export default React.createClass({
         url: TodosDB.hostAddress()+this.props.path+'?id='+todo._id,
         html:'',
         imageURL:'',
-        update:this
+        update:this,
+        urls:[],
+        user:{}
       }
     });
     }
@@ -767,10 +889,20 @@ export default React.createClass({
 	let nav = this.props.navigator;
     if (!nav) return;
     var url = this._renderImageURL(todo);
-	var html = this.processHTML(todo);
+	var html = this.processHTML(todo,true);
 	if(html)
 	{
 		//Alert.alert('',html);
+		//console.log('chang html');
+		//console.log(html);
+		if(html.indexOf('<table>') > -1 && html.indexOf('<head>') < 0)
+		{
+			html = "<head><style>table{margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border-spacing: 0;border-collapse: collapse;\
+						border-top-color: #808080;box-sizing:border-box;border-left: 1px solid #aaa; border-top: 1px solid #aaa;}\
+						tr{margin: 0;padding: 0;border: 0;background-color:rgba(160,160,160,0.2);font-size: 100%;vertical-align: baseline;display: table-row;vertical-align: inherit;border-top-color: inherit;border-right-color: inherit;border-bottom-color: inherit;border-left-color: inherit;}\
+						td{border-right: 1px solid #aaa;border-bottom: 1px solid #aaa;padding: 2px 4px;margin: 0;font-size: 100%;vertical-align: baseline;display: table-cell;vertical-align: inherit;}\
+						</style></head>" + html;
+		}
 		this.props.update.currentClickId(todo._id,todo.msg);
 		nav.push({
       		component: Webview,
@@ -787,7 +919,9 @@ export default React.createClass({
         		url: 'file://',
         		html:'<!DOCTYPE html><html><body>'+html+'</body></html>',
         		imageURL:url,
-        		update:this
+        		update:this,
+        		urls:this.urls,
+        		user:this.props.user
       		}
     	});
 	}
@@ -808,7 +942,8 @@ export default React.createClass({
         		clickImage: this,
         		todo:todo,
         		imageURL:url,
-        		user:this.props.user
+        		user:this.props.user,
+        		urls:this.urls
       		}
     	});
     }

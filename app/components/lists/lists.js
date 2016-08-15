@@ -68,7 +68,7 @@ export default React.createClass({
     	ListsDB.subscribeToLists()
       	.then(() => {
         	ListsDB.observeLists((results) => {
-        	console.log('lists');
+        	//console.log('lists');
         	//console.log(results);
           		if(results.length > 0) 
           		{ 
@@ -363,13 +363,13 @@ export default React.createClass({
     }
     return null;
   },
-  renderText(list)
+  renderText(list,detail)
   {
-  	var detail = ListsDB.Listdetail(list._id);
+  	/*var detail = ListsDB.Listdetail(list._id);
   	if(!detail)
     {
     	if(this.state.subs) detail = this.state.subs[list._id];
-    }
+    }//*/
   	if(list.t == 'd')
   	{
         var title = '@ ';
@@ -457,13 +457,8 @@ export default React.createClass({
   		}
   	}
   },
-  rendermsgs(list,i)
+  rendermsgs(list,i,detail)
   {
-  	var detail = ListsDB.Listdetail(list._id);
-  	if(!detail)
-    {
-    	if(this.state.subs) detail = this.state.subs[list._id];
-    }
     if(i == this.state.lists.length - 1)
   	{
   		//console.log('save subscription');
@@ -479,6 +474,46 @@ export default React.createClass({
   		</View>);
   	}
   	return null;
+  },
+  _rowItem(list,i)
+  {
+  	var detail = ListsDB.Listdetail(list._id);
+  	if(!detail)
+    {
+    	if(this.state.subs) detail = this.state.subs[list._id];
+    }
+    let textStyle = [];
+    textStyle.push(styles.row);
+    if(detail && detail.f) textStyle.push(styles.favorite);
+  	return (<View style={textStyle}>
+              
+      {this.rendermsgs(list,i,detail)}
+              
+      {this.renderLock(list)}
+      {this.renderText(list,detail)}
+
+      <Image
+      	source={chevronRight}
+      	style={styles.rightIcon}/>
+	</View>)
+  },
+  // Sub-render
+  renderItems() {
+  //<Text style={styles.incompleteText}>{list.msgs}</Text>
+  	if(!this.state.lists) return null;
+    return this.state.lists.map((list, i) => {
+      return (
+        <View key={list._id}>
+          <TouchableHighlight
+            underlayColor='rgba(0, 0, 0, 0.1)'
+            onPress={() => this.handlePress(list)}
+            >
+            {this._rowItem(list,i)}
+          </TouchableHighlight>
+          <View style={styles.border} />
+        </View>
+      )
+    });
   },
   handleSubmit() {
     if (this.state.key.length) 
@@ -528,35 +563,6 @@ export default React.createClass({
   		this.beginEdit = false;
   		this.setState({lists:this.currentList});
   	}
-  },
-  // Sub-render
-  renderItems() {
-  //<Text style={styles.incompleteText}>{list.msgs}</Text>
-  	if(!this.state.lists) return null;
-    return this.state.lists.map((list, i) => {
-      return (
-        <View key={list._id}>
-          <TouchableHighlight
-            underlayColor='rgba(0, 0, 0, 0.1)'
-            onPress={() => this.handlePress(list)}
-            >
-            <View style={styles.row}>
-              
-                {this.rendermsgs(list,i)}
-              
-			  {this.renderLock(list)}
-              {this.renderText(list)}
-
-              <Image
-                source={chevronRight}
-                style={styles.rightIcon}
-                />
-            </View>
-          </TouchableHighlight>
-          <View style={styles.border} />
-        </View>
-      )
-    });
   },
   // Component Render
   render() {
@@ -636,6 +642,9 @@ const styles = StyleSheet.create({
   },
   alertstyle:{
   	fontWeight:'bold'
+  },
+  favorite:{
+  	backgroundColor:'rgb(255, 255, 224)'
   },
   rightIcon: { 
     position: 'absolute',

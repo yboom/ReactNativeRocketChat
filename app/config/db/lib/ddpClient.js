@@ -4,7 +4,7 @@ let {AsyncStorage} = require("react-native");
 let {Platform} = require("react-native");
 
 var myClass = require("NativeModules").MyClass;
-let ip = "10.0.0.78";//"54.222.159.156";
+let ip = "54.222.159.156";//"10.0.0.78";//
 if(Platform.OS === 'ios')
 {
 	ip = myClass.address;

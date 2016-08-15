@@ -21,7 +21,8 @@ export default React.createClass({
     clickImage: React.PropTypes.object.isRequired,
     todo: React.PropTypes.object.isRequired,
     imageURL:React.PropTypes.string,
-    user:React.PropTypes.object.isRequired
+    user:React.PropTypes.object.isRequired,
+    urls:React.PropTypes.array.isRequired
   },
 
   // Initial Value (State and Props)

@@ -15,22 +15,6 @@ TodosDB.subscribeToTodos = (listId,timestamp) => {
   	return ddpClient.subscribe('mobileMessages', [listId]);
   }
 };
-TodosDB.unsubscribeToTodos = (listId) => {
-  return ddpClient.unsubscribe(listId);
-};
-TodosDB.connectionError = function(){
-	return ddpClient.error;
-};
-TodosDB.ddpConnection = function(){
-	return ddpClient.initialize();
-};
-TodosDB.ddpClose = function(){
-	return ddpClient.close();
-};
-TodosDB.hostAddress = function(){
-//console.log(ddpClient);
-	return 'http://'+ddpClient.connection.host+':'+ddpClient.connection.port;
-};
 TodosDB.observeTodos = (listId, cb,count,timestamp) => {
 //console.log("listIdMessage");
   let observer = ddpClient.connection.collections.observe(() => {
@@ -55,9 +39,63 @@ TodosDB.observeTodos = (listId, cb,count,timestamp) => {
   });
 
   observer.subscribe((results) => {
-  	console.log('message results----------------');
+  	//console.log('message results----------------');
     cb(results);
   });
+};
+TodosDB.subscribeToOneTodos = (listId,mid) => {
+  return ddpClient.subscribe('mobileMessages', [listId,null,mid]);
+};
+TodosDB.observeOneTodos = (mid, cb) => {
+//console.log("OneMessage");
+  let observer = ddpClient.connection.collections.observe(() => {
+    let collection = ddpClient.connection.collections.rocketchat_message;
+    if (collection) {
+    	return collection.findOne({_id: mid});
+    } else {
+      return null;
+    }
+  });
+  observer.subscribe((result) => {
+  //console.log(result);
+    cb(result);
+  });
+};
+TodosDB.findOneMessage = (mid) => {
+   let connection = ddpClient.connection.collections.rocketchat_message;
+   if(connection)
+   {
+   		let result = ddpClient.connection.collections.rocketchat_message.findOne({_id: mid});
+   		if(result)
+   		{
+			return result;
+   		}
+   		else
+   		{
+      		return null;
+   		}
+   }
+   return null;
+};
+TodosDB.unsubscribeToTodos = (listId) => {
+  return ddpClient.unsubscribe(listId);
+};
+
+TodosDB.connectionError = function(){
+	return ddpClient.error;
+};
+TodosDB.ddpConnection = function(){
+	return ddpClient.initialize();
+};
+TodosDB.ddpClose = function(){
+	return ddpClient.close();
+};
+TodosDB.hostAddress = function(){
+//console.log(ddpClient);
+	return 'http://'+ddpClient.connection.host+':'+ddpClient.connection.port;
+};
+TodosDB.host = function(){
+	return ddpClient.connection.host+':'+ddpClient.connection.port;
 };
 
 TodosDB.removeMessage = (todo) => {
@@ -74,10 +112,8 @@ TodosDB.addTodos = (todo, rid,u) => {
     //ts: new Date(),
     u:u
   };
-
   ddpClient.call('sendMessage', [todoObj]);
 };
-
 TodosDB.addTodo = (todo, rid,u) => {
   let todoObj = {
     rid: rid,
@@ -85,10 +121,8 @@ TodosDB.addTodo = (todo, rid,u) => {
     //ts: new Date(),
     u:u
   };
-
   return ddpClient.call('sendMessage', [todoObj]);
 };
-
 TodosDB.deleteTodo = (todo) => {
   return ddpClient.call('deleteMessage', [todo]);
 };

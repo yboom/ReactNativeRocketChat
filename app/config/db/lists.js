@@ -38,7 +38,7 @@ ListsDB.Listdetail = (roomid) => {
    let connection = ddpClient.connection.collections.rocketchat_subscription;
    if(connection)
    {
-   		let results = ddpClient.connection.collections.rocketchat_subscription.findOne({ rid: roomid }, {fields: { name: 1,alert:1,unread:1 } });
+   		let results = ddpClient.connection.collections.rocketchat_subscription.findOne({ rid: roomid }, {fields: { name: 1,alert:1,unread:1,f:1 } });
    		if(results)
    		{
 			return results;
@@ -50,7 +50,7 @@ ListsDB.findList = (key) => {
    let connection = ddpClient.connection.collections.rocketchat_subscription;
    if(connection)
    {
-   		let results = ddpClient.connection.collections.rocketchat_subscription.find({ name:{$regex:'.*'+key+'.*'}}, {fields: {rid:1, name: 1,alert:1,unread:1 } });
+   		let results = ddpClient.connection.collections.rocketchat_subscription.find({ name:{$regex:'.*'+key+'.*'}}, {fields: {rid:1, name: 1,alert:1,unread:1,f:1 } });
    		if(results&&results.length>0)
    		{
 			return results;
