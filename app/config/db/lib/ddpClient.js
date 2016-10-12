@@ -4,7 +4,7 @@ let {AsyncStorage} = require("react-native");
 let {Platform} = require("react-native");
 
 var myClass = require("NativeModules").MyClass;
-let ip = "54.222.159.156";//"10.0.0.78";//
+let ip = "10.0.0.78";//"54.222.159.156";//
 if(Platform.OS === 'ios')
 {
 	ip = myClass.address;
@@ -153,6 +153,7 @@ ddp.call = function(methodName, params) {
         //console.log(result);
         if (err) {
           reject(err);
+          console.log(err);
           if(methodName == 'sendMessage')
           {
           	var todo = params[0];
@@ -161,8 +162,13 @@ ddp.call = function(methodName, params) {
           	//console.log(todo);
             processStorage(todo);
   		  }
+  		  else if(methodName == 'FileUpload')
+  		  {
+  		  	var error = err.reason.replace('[methods] '+methodName+' ->  ','');
+  		  	require('react-native').Alert.alert('error',error,[{text:'Close',onPress:()=>{}}]);
+  		  }
         } else {
-          resolve(result);
+          //resolve(result);
           console.log(result);
           if(methodName == 'sendMessage')
           {
@@ -175,6 +181,10 @@ ddp.call = function(methodName, params) {
           		require('react-native').NativeAppEventEmitter.emit('deleteMessage',params[0]);
           	}
           }
+          else if(methodName == 'FileUpload')
+  		  {
+  		  	require('react-native').Alert.alert('','Upload file success.',[{text:'OK',onPress:()=>{}}]);
+  		  }
         }
       },
       function () {              // callback which fires when server has finished

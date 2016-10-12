@@ -28,6 +28,9 @@ import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.views.webview.ReactWebViewManager;
 import com.image.zoom.ReactImageZoom;
+import com.imagepicker.ImagePickerPackage;
+import com.yoloci.fileupload.FileUploadPackage;
+
 import android.app.Notification;
 import android.os.Bundle;
 import android.os.Environment;
@@ -69,7 +72,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),new MyClassPackage(),new ReactImageZoom()
+            new MainReactPackage(),new MyClassPackage(),new ReactImageZoom(),new ImagePickerPackage(),new FileUploadPackage()
         );
     }
 

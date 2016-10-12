@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ReactNativeRocketChat.iml" filepath="$PROJECT_DIR$/ReactNativeRocketChat.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-fileupload/android/react-native-fileupload.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-fileupload/android/react-native-fileupload.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-image-picker/android/react-native-image-picker.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-image-picker/android/react-native-image-picker.iml" />
       <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/react-native-image-zoom.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-image-zoom/android/react-native-image-zoom.iml" />
     </modules>
   </component>

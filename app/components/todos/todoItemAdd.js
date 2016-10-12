@@ -5,15 +5,27 @@ import React, {
   Image,
   PixelRatio,
   Alert,
+  TouchableHighlight,
 } from 'react-native';
 let {AsyncStorage} = React;
 let {NativeAppEventEmitter} = React;
 
 import addIcon from '../../images/fa-plus-circle/fa-plus-circle.png';
+import uploadIcon from '../../images/fa-upload-icon/fa-upload-icon.png';
 
 import TodosDB from '../../config/db/todos';
 import Accounts from '../../config/db/accounts';
 
+var Platform = require('react-native').Platform;
+var ImagePicker = require('react-native-image-picker');
+var fileUpload = require('NativeModules').FileUpload;
+
+var options = {
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
+};
 //var subscription = null;
 export default React.createClass({
   // Configuration
@@ -120,7 +132,51 @@ export default React.createClass({
       }
     }
   },
+  showPicker()
+  {
+  	ImagePicker.showImagePicker(options, (response) => {
+  		//console.log('Response = ', response);
+  		if (response.didCancel) {
+    		console.log('User cancelled image picker');
+ 		}
+  		else if (response.error) {
+    		console.log('ImagePicker Error: ', response.error);
+  		}
+  		else if (response.customButton) {
+    		console.log('User tapped custom button: ', response.customButton);
+  		}
+  		else {
+    		// You can display the image using either data...
+    		if(!reponse.data)
+    		{
+    			Alert.alert('','File encode error or selected video file!');
+    			return;
+    		}
+    		if(Platform.OS === 'ios')
+    		{
+    			let size = response.fileSize;
+    			let name = response.uri.split('/').pop();
+    			let type = 'image/'+name.split('.').pop();
+    			response.size = size;
+    			response.type = type;
+    			response.name = name;
+    		}
+    		TodosDB.uploadFile(response,this.props.listId,this.props.user);
+    		
+    		response.data = '';
+    		console.log('Response = ', response);
+    		//const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
 
+    		// or a reference to the platform specific asset location
+    		/*if (Platform.OS === 'ios') {
+      			const source = {uri: response.uri.replace('file://', ''), isStatic: true};
+    		} else {
+      			const source = {uri: response.uri, isStatic: true};
+    		}//*/
+    		//console.log(source);
+  		}
+	});
+  },
   // Component Render
   render() {
   	let sytlesInput=[];
@@ -136,10 +192,15 @@ export default React.createClass({
     return (
       <View>
         <View style={styles.row}>
+        <TouchableHighlight
+      		underlayColor='rgba(0, 0, 0, 0)'
+        	onPress={() => {this.showPicker()}}
+        	>
           <Image
-            source={addIcon}
+            source={uploadIcon}
             style={styles.icon}
             />
+        </TouchableHighlight>
           <TextInput
             ref='input'
             style={sytlesInput}
@@ -177,6 +238,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+    tintColor: 'rgba(0, 0, 0, 0.25)'
+  },
+  uploadicon: {
+    marginRight: 100,
     tintColor: 'rgba(0, 0, 0, 0.25)'
   },
   border: {

@@ -46,12 +46,13 @@ export default React.createClass({
    				var html = this.props.update.processHTML(result,false);
    				if(html)
    				{
-   					this.html = this.html.replace('<div id="'+result._id+'">['+result.id+']</div><br />'+'loading','['+result.id+']<br /><div style="margin-left:15px;font-size:17;">'+html+'</div>');
+   					this.html = this.html.replace('<div id="'+result._id+'">['+result.id+']</div><br />'+'loading','<br />['+result.id+']<div style="margin-left:15px;font-size:17;">'+html+'</div>');
    				}
    				else
    				{
-   					this.html = this.html.replace('<div id="'+result._id+'">['+result.id+']</div><br />'+'loading','['+result.id+']<br /><div style="margin-left:15px;font-size:17;">'+result.msg+'</div>');
+   					this.html = this.html.replace('<div id="'+result._id+'">['+result.id+']</div><br />'+'loading','<br />['+result.id+']<div style="margin-left:15px;font-size:17;">'+result.msg+'</div>');
    				}
+   				var head = '';
    				if(this.html.indexOf('<table>') > -1 && this.html.indexOf('<head>') < 0)
 				{
 					head = "<!DOCTYPE html><html><head><style>table{margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border-spacing: 0;border-collapse: collapse;\
@@ -59,8 +60,45 @@ export default React.createClass({
 						tr{margin: 0;padding: 0;border: 0;background-color:rgba(160,160,160,0.2);font-size: 100%;vertical-align: baseline;display: table-row;vertical-align: inherit;border-top-color: inherit;border-right-color: inherit;border-bottom-color: inherit;border-left-color: inherit;}\
 						td{border-right: 1px solid #aaa;border-bottom: 1px solid #aaa;padding: 2px 4px;margin: 0;font-size: 100%;vertical-align: baseline;display: table-cell;vertical-align: inherit;}\
 						</style></head>";
+				}
+				if(this.html.indexOf('showInfo(') > -1 && this.html.indexOf('<script>') < 0)
+				{
+					head += '<script>function showInfo(t,id,value){var node = t.lastChild;if(node.nodeName == "SPAN"){t.removeChild(node);}else{\
+						var span = document.createElement("span");\
+						span.setAttribute("style","margin-left:10px;cursor:default;color:gray;");\
+						span.innerHTML = value;\
+						t.appendChild(span);} \
+						return false;}</script>';
+				}
+				if(head.length > 0)
+				{
 					this.html = this.html.replace('<!DOCTYPE html><html>',head);
 				}
+				var html = this.props.update.processHTML(null,false);
+				//console.log('webview');
+				//console.log(html);
+   				if(html)
+   				{
+   					head = '';
+   					if(html.indexOf('<table>') > -1 && html.indexOf('<head>') < 0)
+					{
+						head = "<head><style>table{margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border-spacing: 0;border-collapse: collapse;\
+							border-top-color: #808080;box-sizing:border-box;border-left: 1px solid #aaa; border-top: 1px solid #aaa;}\
+							tr{margin: 0;padding: 0;border: 0;background-color:rgba(160,160,160,0.2);font-size: 100%;vertical-align: baseline;display: table-row;vertical-align: inherit;border-top-color: inherit;border-right-color: inherit;border-bottom-color: inherit;border-left-color: inherit;}\
+							td{border-right: 1px solid #aaa;border-bottom: 1px solid #aaa;padding: 2px 4px;margin: 0;font-size: 100%;vertical-align: baseline;display: table-cell;vertical-align: inherit;}\
+							</style></head>";
+					}
+					if(html.indexOf('showInfo(') > -1 && html.indexOf('<script>') < 0)
+					{
+						head += '<script>function showInfo(t,id,value){var node = t.lastChild;if(node.nodeName == "SPAN"){t.removeChild(node);}else{\
+							var span = document.createElement("span");\
+							span.setAttribute("style","margin-left:10px;cursor:default;color:gray;");\
+							span.innerHTML = value;\
+							t.appendChild(span);} \
+							return false;}</script>';
+					}
+					this.html = '<!DOCTYPE html><html><body>' +head+html+ '</body></html>';
+   				}//*/
 				this.setState({html:this.html});
    			}
   		});
@@ -91,6 +129,36 @@ export default React.createClass({
   		});
     });//*/
   },
+  processHTML()
+  {
+  	var html = this.props.update.processHTML(null,false);
+   	//console.log('webview');
+	//console.log(html);
+   	if(html)
+   	{
+   		head = '';
+   		if(html.indexOf('<table>') > -1 && html.indexOf('<head>') < 0)
+		{
+			head = "<head><style>table{margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border-spacing: 0;border-collapse: collapse;\
+				border-top-color: #808080;box-sizing:border-box;border-left: 1px solid #aaa; border-top: 1px solid #aaa;}\
+				tr{margin: 0;padding: 0;border: 0;background-color:rgba(160,160,160,0.2);font-size: 100%;vertical-align: baseline;display: table-row;vertical-align: inherit;border-top-color: inherit;border-right-color: inherit;border-bottom-color: inherit;border-left-color: inherit;}\
+				td{border-right: 1px solid #aaa;border-bottom: 1px solid #aaa;padding: 2px 4px;margin: 0;font-size: 100%;vertical-align: baseline;display: table-cell;vertical-align: inherit;}\
+				</style></head>";
+		}
+		if(html.indexOf('showInfo(') > -1 && html.indexOf('<script>') < 0)
+		{
+			head += '<script>function showInfo(t,id,value){var node = t.lastChild;if(node.nodeName == "SPAN"){t.removeChild(node);}else{\
+				var span = document.createElement("span");\
+				span.setAttribute("style","margin-left:10px;cursor:default;color:gray;");\
+				span.innerHTML = value;\
+				t.appendChild(span);} \
+				return false;}</script>';
+		}
+		html = '<!DOCTYPE html><html><body>'+head + html+'</body></html>';
+		this.html = html;
+   	}
+   	this.setState({html:this.html});
+  },
   loadMessage(url,index)
   {
 	if(TodosDB.connectionError())
@@ -102,20 +170,20 @@ export default React.createClass({
   				var html = this.props.update.processHTML(json,false);
    				if(html)
    				{
-   					this.html = this.html.replace('<div id="'+url._id+'">['+url.id+']</div><br />'+'loading','['+url.id+']<br /><div style="margin-left:15px;font-size:17;">'+html+'</div>');
+   					this.html = this.html.replace('<div id="'+url._id+'">['+url.id+']</div><br />'+'loading','<br />['+url.id+']<div style="margin-left:15px;font-size:17;">'+html+'</div>');
    				}
    				else
    				{
-   					this.html = this.html.replace('<div id="'+url._id+'">['+url.id+']</div><br />'+'loading','['+url.id+']<br /><div style="margin-left:15px;font-size:17;">'+json.msg+'</div>');
+   					this.html = this.html.replace('<div id="'+url._id+'">['+url.id+']</div><br />'+'loading','<br />['+url.id+']<div style="margin-left:15px;font-size:17;">'+json.msg+'</div>');
    				}
   			}
   			if(index+1 < this.props.urls.length)
    			{
-   				this.loadMessage(this.props.urls[index+1],index+1)
+   				this.loadMessage(this.props.urls[index+1],index+1);
    			}
    			else
    			{
-   				this.setState({html:this.html});
+   				this.processHTML();
    			}
   		});
 	}
@@ -131,11 +199,11 @@ export default React.createClass({
    						var html = this.props.update.processHTML(result,false);
    						if(html)
    						{
-   							this.html = this.html.replace('<div id="'+url._id+'">['+url.id+']</div><br />'+'loading','['+url.id+']<br /><div style="margin-left:15px;font-size:17;">'+html+'</div>');
+   							this.html = this.html.replace('<div id="'+url._id+'">['+url.id+']</div><br />'+'loading','<br />['+url.id+']<div style="margin-left:15px;font-size:17;">'+html+'</div>');
    						}
    						else
    						{
-   							this.html = this.html.replace('<div id="'+url._id+'">['+url.id+']</div><br />'+'loading','['+url.id+']<br /><div style="margin-left:15px;font-size:17;">'+result.msg+'</div>');
+   							this.html = this.html.replace('<div id="'+url._id+'">['+url.id+']</div><br />'+'loading','<br />['+url.id+']<div style="margin-left:15px;font-size:17;">'+result.msg+'</div>');
    						}
    					}
    					if(index+1 < this.props.urls.length)
@@ -144,7 +212,7 @@ export default React.createClass({
    					}
    					else
    					{
-   						this.setState({html:this.html});
+   						this.processHTML();
    					}
    				});
    			})

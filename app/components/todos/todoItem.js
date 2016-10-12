@@ -13,6 +13,7 @@ import React, {
   Modal,
 } from 'react-native';
 let {AsyncStorage} = React;
+let _ = require("underscore");
 
 import openSquare from '../../images/fa-square-o/fa-square-o.png';
 import checkedSquare from '../../images/fa-check-square-o/fa-check-square-o.png';
@@ -269,6 +270,383 @@ export default React.createClass({
     }
     return array;
   },
+  _Eval(string,type)
+  {
+  	var cal='+-*/().:＋－＊／（）：';//['+','-','*','/','(',')','.','－','d','a','y'];
+  	var result = '';
+  		for(var j=0;j<string.length;j++)
+  		{
+  			var noRight = false;
+  			var chart = string.substring(string.length-j-1,string.length-j);
+  			if(!isNaN(chart) && chart != ' ' && j<string.length-1) continue;
+  			if(chart == ':' || chart == '：')
+  			{
+  				var str = string.substring(0,string.length-j-1);
+  				//console.log(str);
+  				str = str.replace(/（/gm,'(');
+  				var ri_qi = str.indexOf('day(');
+   				var right = str.lastIndexOf('(');
+  				if(right > -1 && ri_qi > -1)
+  				{
+					chart = '(';
+					var l = str.length - right;
+					j = j + l;
+					//console.log(l);
+				}
+				else
+				{
+					noRight = true;
+				}
+  			}
+  			if((chart == '(' || chart == '（') && (j+3 < string.length))
+  			{
+  				var l = string.length-j-4;
+  				if(l>=0)
+  				{
+  					var d = string.substring(l,l+3);
+  					//console.log('day='+d);
+  					if(d == 'day')
+  					{
+  						if(l>0)
+  						{
+  							var f = string.substring(l-1,l);
+  							//console.log('f='+f);
+  							if(cal.indexOf(f) > -1 && (f!='(' || f!= ')' || f!='（' || f!= '）'))
+  							{
+  								//console.log('jump 3');
+  								j = j+3;
+  							}
+  							else
+  							{
+  								var str = string.substring(string.length-j);
+  								str = 'day'+chart+str;
+  								//console.log(str);
+  								str = str.replace(/（/gm,'(');
+  								str = str.replace(/）/gm,')');
+  								//str = str.replace(/\./gm,'-');
+  								str = str.replace(/t/gm,'T');
+  								str = str.replace(/：/gm,':');
+  								var day = str.split('day(');
+  								//console.log(str);
+  								if(day.length > 0)
+  								{
+  									var daystring = '';//day[0];
+  									if(day[0].length > 0) daystring = day[0];
+  									for(var k=1;k<day.length;k++)
+  									{
+  										var d = day[k];
+  										var sday = d.replace(/ /gm,'')
+										var st = sday.split('T')
+										var s = st[0].replace(/\./gm,'-')
+										sday = s
+										if(st.length > 1) sday += 'T' + st[1]
+										index = sday.indexOf(')')
+  										daystring += 'new Date("' + sday.substring(0,index) +'")/1000/3600/24'+ sday.substring(index+1);
+  									}
+  									str = daystring;
+  								}
+  								//console.log(str);
+  								try
+  								{
+  									var r = eval(str);
+  									result += string + '=' + r;
+  									if(type)
+  									{
+										result = result.replace(string+'=','');
+										result = result.replace('? ','');
+										result = eval(result);
+									}
+  								}
+  								catch(e)
+  								{
+  									result += string + '=? ';
+  									if(type) result = 0;
+  								}
+  								break;
+  							}
+  						}
+  					}
+  				}
+  			}
+  			if((cal.indexOf(chart) == -1) || (cal.indexOf(chart) > -1 && j == string.length-1) || noRight)
+  			{
+  				var str = string.substring(string.length-j);
+  				if(j == string.length-1) str = string.substring(string.length-j-1);
+  				//console.log(str);
+  				str = str.replace(/（/gm,'(');
+  				str = str.replace(/）/gm,')');
+  				str = str.replace(/＋/gm,'+');
+  				str = str.replace(/－/gm,'-');
+  				str = str.replace(/＊/gm,'*');
+  				str = str.replace(/／/gm,'/');
+  				var left =str.split('(');
+  				var right = str.split(')');
+  				if(left.length > 1 && left[left.length-1].length > 0 && left.length == right.length)
+  				{
+  					try
+  					{
+  						var r = eval(str);
+  						result += string + '=' + r;
+  						if(type)
+  						{
+							result = result.replace(string+'=','');
+							result = result.replace('? ','');
+							result = eval(result);
+						}
+  					}
+  					catch(e)
+  					{
+  						result += string + '=? ';
+  						if(type) result = 0;
+  					}
+  				}
+  				else
+  				{
+  					try
+  					{
+  						var r = eval(str);
+  						if(!isNaN(r))
+  						{
+  							result += string + '=' + r;
+  							if(type)
+  							{
+								result = result.replace(string+'=','');
+								result = result.replace('? ','');
+								result = eval(result);
+							}
+  						}
+  						else
+  						{
+  							result += string + '=? ';
+  							if(type) result = 0;
+  						}
+  					}
+  					catch(e)
+  					{
+  						result += string + '=? ';
+  						if(type) result = 0;
+  					}
+  				}
+  				break;
+  			}
+  		}
+  	return result;
+  },
+  _sumEval(message,load,column)
+  {
+	var s = 0
+	if( message.urls && message.urls.length > 0)
+	{
+		//console.log(message.urls);
+		for(var i=0;i<message.urls.length;i++)
+		{	
+			var url = message.urls[i];		
+			if (!url || !url.meta || !url.meta.msg || !url.meta.msg.msg)
+			{
+				continue;
+			}
+			var value = url.meta.msg.msg;
+			//console.log(value);
+			var msg = this.processURLs(url.meta.msg.rid,url.meta.msg._id,-1,-1);
+			if(msg)
+			{
+				value = msg.msg;
+			}
+			var string = value.replace(/=？/gm,'=?');
+			string = string.replace(/＝？/gm,'=?');
+			string = string.replace(/＝\?/gm,'=?');
+			var  array = string.split("=?");
+			if (array.length >= column)
+			{
+				var s_value = array[column-1];
+				if (s_value.length == 0)
+				{
+					s = s + 0;
+				}
+				else
+				{
+					var str_value = s_value.replace(/（/gm,'(');
+					str_value = str_value.replace(/）/gm,')');
+					var sumArray = str_value.split("sum(");
+					if(sumArray.length > 1)
+					{
+						for (var j=1; j<sumArray.length;j++)
+						{
+							var str = sumArray[j];
+							var index = str.indexOf(')');
+							var msg = this.processURLs(url.meta.msg.rid,url.meta.msg._id,-1,-1);
+							//console.log(msg);
+							if(msg)
+							{
+								var v = this._sumEval(msg,load,str.substring(0,index));
+								s_value = s_value.replace('sum('+str.substring(0, index)+')',v);
+							}
+							else
+							{
+								var v = this._sumEval(url.meta.msg,load,str.substring(0,index));
+								s_value = s_value.replace('sum('+str.substring(0, index)+')',v);
+							}
+							//console.log s_value
+						}
+					}
+					s = this._Eval(s_value,true) + s;
+				}
+			}
+		}
+	}
+	return s;
+  },
+  _evalExpression(string)
+  {
+	var cal='+-*/().:＋－＊／（）：';//['+','-','*','/','(',')','.','－','d','a','y'];
+  	var result = '';
+  		for(var j=0;j<string.length;j++)
+  		{
+  			var noRight = false;
+  			var chart = string.substring(string.length-j-1,string.length-j);
+  			if(!isNaN(chart) && chart != ' ' && j<string.length-1) continue;
+  			if(chart == ':' || chart == '：')
+  			{
+  				var str = string.substring(0,string.length-j-1);
+  				//console.log(str);
+  				var ri_qi = str.indexOf('day(');
+				if(ri_qi == -1)
+					ri_qi = str.indexOf('day（');
+  				//str = str.replace(/（/gm,'(');
+  				var right = str.lastIndexOf('(');
+				//console.log right
+				if(right > -1 && ri_qi > -1)
+				{
+					chart = '(';
+				}
+				else
+				{
+					right = str.lastIndexOf('（');
+					if(right > -1 && ri_qi > -1)
+					{
+						chart = '（';
+					}
+				}
+  				if(right > -1 && ri_qi > -1)
+  				{
+					var l = str.length - right;
+					j = j + l;
+					//console.log(l);
+				}
+				else
+				{
+					noRight = true;
+				}
+  			}
+  			if((chart == '(' || chart == '（') && (j+3 < string.length))
+  			{
+  				var l = string.length-j-4;
+  				if(l>=0)
+  				{
+  					var d = string.substring(l,l+3);
+  					//console.log('day='+d);
+  					if(d == 'day' || d == 'sum')
+  					{
+  						if(l>0)
+  						{
+  							var f = string.substring(l-1,l);
+  							//console.log('f='+f);
+  							if(cal.indexOf(f) > -1 && (f!='(' || f!= ')' || f!='（' || f!= '）'))
+  							{
+  								//console.log('jump 3');
+  								j = j+3;
+  							}
+  							else
+  							{
+  								var str = string.substring(string.length-j);
+  								if(d == 'day')
+  								{
+									result = 'day'+chart+str;
+									//console.log(result);
+								}
+								else
+								{
+									result = 'sum'+chart+str;
+								}
+  								break;
+  							}
+  						}
+  					}
+  				}
+  			}
+  			if((cal.indexOf(chart) == -1) || (cal.indexOf(chart) > -1 && j == string.length-1) || noRight)
+  			{
+  				result = string.substring(string.length-j);
+  				if(j == string.length-1) result = string.substring(string.length-j-1);
+  				break;
+  			}
+  		}
+  	return result;
+  },
+  _renderEval(value,msg,load,html)
+  {
+  	var result = '';
+  	//console.log(value);
+  	var array = value;
+  	if(!_.isArray(value))
+  	{
+  		var string = value;
+  		value = value.replace(/=？/gm,'=?');
+  		value = value.replace(/＝？/gm,'=?');
+  		value = value.replace(/＝\?/gm,'=?');
+  		array = value.split('=?');
+  		if(array.length <= 1)
+  		{
+  			return string;
+  		}
+  	}
+  	var cal='+-*/().:＋－＊／（）：';//['+','-','*','/','(',')','.','－','d','a','y'];
+  	for(var i=0;i<array.length-1;i++)
+  	{
+  		var string = array[i];
+  		if(string.length == 0) continue;
+  		
+  		var str_value = string;                                                                                    
+        str_value = str_value.replace(/（/gm, '(');                                                             
+        str_value = str_value.replace(/）/gm, ')');                                                             
+        var sumArray = str_value.split("sum(");                                                                   
+        if (sumArray.length > 1) 
+        {                                                                            
+            for (j = 1; j<sumArray.length;j++) 
+            {                                         
+              var str = sumArray[j];                                                                                 
+              var index = str.indexOf(')');                                                                          
+              var v = this._sumEval(msg,load, str.substring(0, index));                                                        
+              var str_sum = 'sum(' + str.substring(0, index) + ')';                                                  
+              str_value = str_value.replace(str_sum, v);                                                         
+        	}
+        	//console.log(str_value);                                                                                                    
+        }                                                                                                      
+        var str = this._Eval(str_value, true);
+        if(html)
+        {
+        	expression = this._evalExpression(string);
+			prev = string.replace(expression,'');
+			if(expression.length == 0)
+			{
+				expression = string;
+				prev = ' ';
+			}
+			//result += string + '=' + str
+			expression = expression.replace(/ /gm, '');
+			expression = expression.replace(/\n/gm, '');
+			result += prev+'<a href="javascript:void(0)" style="text-decoration:none;" id="'+msg._id+i+'" class="equ-link" onclick="return showInfo(this,\''+msg._id+i+'\',\''+expression+'\')" title="'+expression+'" alt="'+expression+'">'+str+'</a>&nbsp;&nbsp;&nbsp;'
+        }
+        else
+        {                                                                          
+        	result += string + '=' + str;
+        }
+  	}
+  	var last = array[array.length-1].replace("<<<","");
+  	result += last;
+  	//console.log(result);
+  	return result;
+  },
   _renderType(value)
   {
   	if(value == '[x]')
@@ -279,7 +657,19 @@ export default React.createClass({
   	{
   		return this.renderCheckAction(0);
   	}
-  	return value.replace("<<<","");
+  	let s = value;
+  	value = value.replace(/=？/gm,'=?');
+  	value = value.replace(/＝？/gm,'=?');
+  	value = value.replace(/＝\?/gm,'=?');
+  	var array = value.split('=?');
+  	if(array.length > 1)
+  	{
+  		return this._renderEval(array,this.props.todo,false,false);
+  	}
+  	else
+  	{
+  		return s.replace("<<<","");
+  	}
   },
   _renderText(text)
   {
@@ -407,11 +797,9 @@ export default React.createClass({
     }
   	return null;
   },
-  processHTML(todo,cur)
+  processURLArray(todo,message,cur)
   {
   	if(!todo) todo = this.props.todo;
-  	var message = todo.msg;
-  	//console.log(message);
   	var urlHTML = false;
   	if(todo.urls && todo.urls.length > 0)
 	{
@@ -441,29 +829,34 @@ export default React.createClass({
 					{
 						if(url)
 						{
-							message = message.replace(link,'['+j+']<br /><div style="margin-left:15px;">'+html+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
+							//message = message.replace(link,'<br />['+j+']<div style="margin-left:15px;">'+html+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
+							message = message.concat('<br />['+j+']<div style="margin-left:15px;">'+html+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
 						}
 						else
 						{
-							message = message.replace(link,'['+j+']<br /><div style="margin-left:15px;">'+html+'</div>');
+							//message = message.replace(link,'<br />['+j+']<div style="margin-left:15px;">'+html+'</div>');
+							message = message.concat('<br />['+j+']<div style="margin-left:15px;">'+html+'</div>');
 						}
 					}
 					else
 					{
 						if(url)
 						{
-							message = message.replace(link,'['+j+']<br /><div style="margin-left:15px;">'+mes.msg+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
+							//message = message.replace(link,'<br />['+j+']<div style="margin-left:15px;">'+mes.msg+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
+							message = message.concat('<br />['+j+']<div style="margin-left:15px;">'+mes.msg+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
 						}
 						else
 						{
-							message = message.replace(link,'['+j+']<br /><div style="margin-left:15px;">'+mes.msg+'</div>');
+							//message = message.replace(link,'<br />['+j+']<div style="margin-left:15px;">'+mes.msg+'</div>');
+							message = message.concat('<br />['+j+']<div style="margin-left:15px;">'+mes.msg+'</div>');
 						}
 					}
 				}
 				else
 				{
 					if(cur) this.urls.push({id:j,url:link,name:listName,_id:id});
-					message = message.replace(link,'<div id="'+id+'">['+j+']</div><br />'+'loading');
+					//message = message.replace(link,'<div id="'+id+'">['+j+']</div><br />'+'loading');
+					message = message.concat('<div id="'+id+'">['+j+']</div><br />'+'loading');
 				}
 			}
 		}
@@ -473,6 +866,78 @@ export default React.createClass({
     {
     	if(cur) this.urls = [];
     }
+    return message;
+  },
+  processHTML(todo,cur)
+  {
+  	if(!todo) todo = this.props.todo;
+  	var message = todo.msg;
+  	//console.log(message);
+  	var urlHTML = false;
+  	if(todo.urls && todo.urls.length > 0)
+	{
+		let urls = todo.urls;
+		//console.log(urls);
+		if(this.urls.length > 0 && cur) this.urls = [];
+		for(var i=0;i<urls.length;i++)
+		{
+			let url = urls[i];
+			let link = url.url;
+			let host = url.parsedUrl.host;
+			let query = url.parsedUrl.query;
+			if((host == TodosDB.host()) && (query.indexOf('id=') == 0) && (query.indexOf('&') == -1))
+			{
+				urlHTML = true;
+				let id = query.replace('id=','');
+				let listName = url.parsedUrl.pathname.split('/').reverse().shift();
+				//console.log(listName);
+				//console.log(id);
+				let j =i+1;
+				let mes = this.processURLs(listName,id,cur,j);
+				if(mes)
+				{
+					var url = null;//this._renderImageURL(mes);
+					let html = this.processHTML(mes,false);
+					if(html)
+					{
+						if(url)
+						{
+							message = message.replace(link,'<br />['+j+']<div style="margin-left:15px;">'+html+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
+						}
+						else
+						{
+							//message = message.replace(link,'<br />['+j+']<div style="margin-left:15px;">'+html+'</div>');
+							message = message.replace(link,'&nbsp;&nbsp;<i class="icon-link">['+j+']</i>');
+						}
+					}
+					else
+					{
+						if(url)
+						{
+							message = message.replace(link,'<br />['+j+']<div style="margin-left:15px;">'+mes.msg+'</div><div style="margin-left:15px;"><img src="'+url+'" /></div>');
+						}
+						else
+						{
+							//message = message.replace(link,'<br />['+j+']<div style="margin-left:15px;">'+mes.msg+'</div>');
+							message = message.replace(link,'&nbsp;&nbsp;<i class="icon-link">['+j+']</i>');
+						}
+					}
+				}
+				else
+				{
+					if(cur) this.urls.push({id:j,url:link,name:listName,_id:id});
+					//message = message.replace(link,'<div id="'+id+'">['+j+']</div><br />'+'loading');
+					message = message.replace(link,'&nbsp;&nbsp;<i class="icon-link">['+j+']</i>');
+				}
+			}
+		}
+		//console.log(this.urls);
+    }
+    else
+    {
+    	if(cur) this.urls = [];
+    }
+    
   	var msg = message;
   	var html = false;
   	if(message.split("|").length > 2)
@@ -820,6 +1285,7 @@ export default React.createClass({
 	msg = message;
 	if(html || msg.match(/\{\{(.*)\}\}/m) || msg.match(/\[\]/gm) || msg.match(/\[[xX]\]/gm) || msg.match(/^\.\d+\s*/m) || msg.match(/^(.*td>)\.\d+\s*/m) || msg.match(/==(\d+)%/gm))
 	{
+		msg = this._renderEval(msg,todo,html,true);
 		//JSON.stringify message
 		msg = message.replace (/\n/gm, '<br/>');
 
@@ -844,13 +1310,39 @@ export default React.createClass({
 		//for marks
 		msg = msg.replace (/^\.\d+\s*/m, '');
 		msg = msg.replace (/^(.*td>)\.\d+\s*/m, '$1');
-
+		msg = msg.concat('<hr />');
+		//console.log('msg');
+		//console.log(msg);
+		if(urlHTML) msg = this.processURLArray(todo,msg,cur);
 		return msg;
 	}
 	if(!html && urlHTML)
 	{
+		message = this._renderEval(message,todo,urlHTML,true);
+		//console.log('message');
+		//console.log(message);
 		message = message.replace(/\n/gm,'<br/>');
+		if(urlHTML) message = message.concat('<hr />');
+		message = this.processURLArray(todo,message,cur);
 		return message;
+	}
+	if(!html)
+	{
+		var value = message;
+  		value = value.replace(/=？/gm,'=?');
+  		value = value.replace(/＝？/gm,'=?');
+  		value = value.replace(/＝\?/gm,'=?');
+  		array = value.split('=?');
+  		if(array.length > 1)
+  		{
+  			message = this._renderEval(message,todo,true,true);
+			//console.log('message');
+			//console.log(message);
+			message = message.replace(/\n/gm,'<br/>');
+			if(urlHTML) message = message.concat('<hr />');
+			message = this.processURLArray(todo,message,cur);
+			return message;
+  		}
 	}
 	return html;
   },
@@ -903,6 +1395,16 @@ export default React.createClass({
 						td{border-right: 1px solid #aaa;border-bottom: 1px solid #aaa;padding: 2px 4px;margin: 0;font-size: 100%;vertical-align: baseline;display: table-cell;vertical-align: inherit;}\
 						</style></head>" + html;
 		}
+		if(html.indexOf('showInfo(') > -1 && html.indexOf('<script>') < 0)
+		{
+			html += '<script>function showInfo(t,id,value){var node = t.lastChild;if(node.nodeName == "SPAN"){t.removeChild(node);}else{\
+				var span = document.createElement("span");\
+				span.setAttribute("style","margin-left:10px;cursor:default;color:gray;");\
+				span.innerHTML = value;\
+				t.appendChild(span);} \
+				return false;}</script>';
+		}
+		//console.log(html);
 		this.props.update.currentClickId(todo._id,todo.msg);
 		nav.push({
       		component: Webview,

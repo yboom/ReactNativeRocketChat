@@ -9,6 +9,7 @@ import React, {
   Image,
 } from 'react-native';
 let {AsyncStorage} = React;//require('react-native');;
+let _ = require("underscore");
 
 import Accounts from '../../config/db/accounts';
 import openSquare from '../../images/fa-square-o/fa-square-o.png';
@@ -133,6 +134,254 @@ export default React.createClass({
     }
     return array;
   },
+  _Eval(string,type)
+  {
+  	var cal='+-*/().:＋－＊／（）：';//['+','-','*','/','(',')','.','－','d','a','y'];
+  	var result = '';
+  		for(var j=0;j<string.length;j++)
+  		{
+  			var chart = string.substring(string.length-j-1,string.length-j);
+  			if(!isNaN(chart) && chart != ' ' && j<string.length-1) continue;
+  			if(chart == ':' || chart == '：')
+  			{
+  				var str = string.substring(0,string.length-j-1);
+  				//console.log(str);
+  				str = str.replace(/（/gm,'(');
+  				var right = str.lastIndexOf('(');
+  				chart = '(';
+  				var l = str.length - right;
+  				//console.log(l);
+  				j = j+l;
+  			}
+  			if((chart == '(' || chart == '（') && (j+3 < string.length))
+  			{
+  				var l = string.length-j-4;
+  				if(l>=0)
+  				{
+  					var d = string.substring(l,l+3);
+  					//console.log('day='+d);
+  					if(d == 'day')
+  					{
+  						if(l>0)
+  						{
+  							var f = string.substring(l-1,l);
+  							//console.log('f='+f);
+  							if(cal.indexOf(f) > -1 && (f!='(' || f!= ')' || f!='（' || f!= '）'))
+  							{
+  								//console.log('jump 3');
+  								j = j+3;
+  							}
+  							else
+  							{
+  								var str = string.substring(string.length-j);
+  								str = 'day'+chart+str;
+  								//console.log(str);
+  								str = str.replace(/（/gm,'(');
+  								str = str.replace(/）/gm,')');
+  								//str = str.replace(/\./gm,'-');
+  								str = str.replace(/t/gm,'T');
+  								str = str.replace(/：/gm,':');
+  								var day = str.split('day(');
+  								//console.log(str);
+  								if(day.length > 0)
+  								{
+  									var daystring = '';//day[0];
+  									if(day[0].length > 0) daystring = day[0];
+  									for(var k=1;k<day.length;k++)
+  									{
+  										var d = day[k];
+  										var sday = d.replace(/ /gm,'')
+										var st = sday.split('T')
+										var s = st[0].replace(/\./gm,'-')
+										sday = s
+										if(st.length > 1) sday += 'T' + st[1]
+										index = sday.indexOf(')')
+  										daystring += 'new Date("' + sday.substring(0,index) +'")/1000/3600/24'+ sday.substring(index+1);
+  									}
+  									str = daystring;
+  								}
+  								try
+  								{
+  									var r = eval(str);
+  									result += string + '=' + r;
+  									if(type)
+  									{
+										result = result.replace(string+'=','');
+										result = result.replace('? ','');
+										result = eval(result);
+									}
+  								}
+  								catch(e)
+  								{
+  									result += string + '=? ';
+  									if(type) result = 0;
+  								}
+  								break;
+  							}
+  						}
+  					}
+  				}
+  			}
+  			if((cal.indexOf(chart) == -1) || (cal.indexOf(chart) > -1 && j == string.length-1))
+  			{
+  				var str = string.substring(string.length-j);
+  				if(j == string.length-1) str = string.substring(string.length-j-1);
+  				//console.log(str);
+  				str = str.replace(/（/gm,'(');
+  				str = str.replace(/）/gm,')');
+  				str = str.replace(/＋/gm,'+');
+  				str = str.replace(/－/gm,'-');
+  				str = str.replace(/＊/gm,'*');
+  				str = str.replace(/／/gm,'/');
+  				var left =str.split('(');
+  				var right = str.split(')');
+  				if(left.length > 1 && left[left.length-1].length > 0 && left.length == right.length)
+  				{
+  					try
+  					{
+  						var r = eval(str);
+  						result += string + '=' + r;
+  						if(type)
+  						{
+							result = result.replace(string+'=','');
+							result = result.replace('? ','');
+							result = eval(result);
+						}
+  					}
+  					catch(e)
+  					{
+  						result += string + '=? ';
+  						if(type) result = 0;
+  					}
+  				}
+  				else
+  				{
+  					try
+  					{
+  						var r = eval(str);
+  						if(!isNaN(r))
+  						{
+  							result += string + '=' + r;
+  							if(type)
+  							{
+								result = result.replace(string+'=','');
+								result = result.replace('? ','');
+								result = eval(result);
+							}
+  						}
+  						else
+  						{
+  							result += string + '=? ';
+  							if(type) result = 0;
+  						}
+  					}
+  					catch(e)
+  					{
+  						result += string + '=? ';
+  						if(type) result = 0;
+  					}
+  				}
+  				break;
+  			}
+  		}
+  	return result;
+  },
+  _sumEval(message,column)
+  {
+	s = 0
+	if( message.urls && message.urls.length > 0)
+	{
+		for(var i=0;i<message.urls.length;i++)
+		{	
+			var url = message.urls[i];		
+			if (!url || !url.meta || !url.meta.msg || !url.meta.msg.msg)
+			{
+				continue;
+			}
+			var value = url.meta.msg.msg;
+			var string = value.replace(/=？/gm,'=?');
+			string = string.replace(/＝？/gm,'=?');
+			string = string.replace(/＝\?/gm,'=?');
+			var  array = string.split("=?");
+			if (array.length >= column)
+			{
+				s_value = array[column-1];
+				if (s_value.length == 0)
+				{
+					return 0;
+				}
+				else
+				{
+					var str_value = s_value.replace(/（/gm,'(');
+					str_value = str_value.replace(/）/gm,')');
+					var sumArray = str_value.split("sum(");
+					if(sumArray.length > 1)
+					{
+						for (var j=0; j<sumArray.length;j++)
+						{
+							var str = sumArray[j];
+							if(j == 0 )
+								continue
+							var index = str.indexOf(')');
+							var v = this._sumEval(url.meta.msg,str.substring(0,index));
+							s_value = s_value.replace('sum('+str.substring(0, index)+')',v);
+							//console.log s_value
+						}
+					}
+					s = this._Eval(s_value,true) + s;
+					}
+				}
+		}
+	}
+	return s;
+  },
+  _renderEval(value)
+  {
+  	var result = '';
+  	console.log(value);
+  	var array = value;
+  	if(!_.isArray(value))
+  	{
+  		var string = value;
+  		value = value.replace(/=？/gm,'=?');
+  		value = value.replace(/＝？/gm,'=?');
+  		value = value.replace(/＝\?/gm,'=?');
+  		array = value.split('=?');
+  		if(array.length <= 1)
+  		{
+  			return string;
+  		}
+  	}
+  	var cal='+-*/().:＋－＊／（）：';//['+','-','*','/','(',')','.','－','d','a','y'];
+  	for(var i=0;i<array.length-1;i++)
+  	{
+  		var string = array[i];
+  		if(string.length == 0) continue;
+  		
+  		var str_value = string;                                                                                    
+        str_value = str_value.replace(/（/gm, '(');                                                             
+        str_value = str_value.replace(/）/gm, ')');                                                             
+        var sumArray = str_value.split("sum(");                                                                   
+         if (sumArray.length > 1) {                                                                            
+            for (j = o = 0, len1 = sumArray.length; o < len1; j = ++o) {                                         
+              str = sumArray[j];                                                                                 
+              if (j === 0) {                                                                                     
+                continue;                                                                                       
+              }                                                                                                  
+              index = str.indexOf(')');                                                                          
+              v = this._sumEval(this.props.todo, str.substring(0, index));                                                        
+              str_sum = 'sum(' + str.substring(0, index) + ')';                                                  
+              str_value = str_value.replace(str_sum, v);                                                         
+            }                                                                                                    
+          }                                                                                                      
+          str = this._Eval(str_value, true);                                                                          
+          result += string + '=' + str;
+  	}
+  	var last = array[array.length-1].replace("<<<","");
+  	result += last;
+  	//console.log(result);
+  	return result;
+  },
   _renderType(value)
   {
   	if(value == '[x]')
@@ -143,7 +392,19 @@ export default React.createClass({
   	{
   		return this.renderCheckAction(0);
   	}
-  	return value.replace("<<<","");
+  	let s = value;
+  	value = value.replace(/=？/gm,'=?');
+  	value = value.replace(/＝？/gm,'=?');
+  	value = value.replace(/＝\?/gm,'=?');
+  	var array = value.split('=?');
+  	if(array.length > 1)
+  	{
+  		return this._renderEval(array);
+  	}
+  	else
+  	{
+  		return s.replace("<<<","");
+  	}
   },
   renderImage() {
 	if(this.props.imageURL)

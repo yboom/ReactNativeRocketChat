@@ -4,3 +4,7 @@ include ':app'
 
 include ':react-native-image-zoom'
 project(':react-native-image-zoom').projectDir = file('../node_modules/react-native-image-zoom/android')
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(settingsDir, '../node_modules/react-native-image-picker/android')
+include ':react-native-fileupload'
+project(':react-native-fileupload').projectDir = new File(settingsDir, '../node_modules/react-native-fileupload/android')

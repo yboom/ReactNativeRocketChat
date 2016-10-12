@@ -34,6 +34,7 @@ export default React.createClass({
 	deleteMessage:null,
 	showLocal:false,
 	sendMessage:null,
+	sendSuccess:null,
   // Initial Value (State and Props)
   getInitialState() {
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -46,6 +47,7 @@ export default React.createClass({
   componentWillMount() {
   //console.log('Todos willmount');
   this.deleteMessage = require('react-native').NativeAppEventEmitter.addListener('deleteMessage',(body)=>{this._deleteMessage(body);});
+  this.sendSuccess = require('react-native').NativeAppEventEmitter.addListener('Sendsuccess',(body)=>{TodosDB.insertMessage(body);});
   	AsyncStorage.getItem('userId')
     	.then((userId)=>{
     	if(userId){
@@ -137,7 +139,9 @@ export default React.createClass({
   },
   componentWillUnmount() {
 	this.deleteMessage.remove();
+	this.sendSuccess.remove();
 	if(this.sendMessage) this.sendMessage.remove();
+	this.setState({todos: this.state.todos.cloneWithRows([])});
   },
   currentClickId(_id,msg){
   	this.clickId=_id;

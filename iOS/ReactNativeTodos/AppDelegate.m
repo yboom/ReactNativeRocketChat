@@ -74,8 +74,15 @@
     }
     else
     {
+      if([[NSFileManager defaultManager] fileExistsAtPath:[jsBundlePath stringByAppendingPathComponent:@"main.jsbundle"]])
+      {
+        jsCodeLocation = [NSURL fileURLWithPath:[jsBundlePath stringByAppendingPathComponent:@"main.jsbundle"]];
+      }
+      else//*/
+      {
         jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-      //jsCodeLocation = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:8081/index.ios.bundle?platform=ios&dev=true",ip]];
+        //jsCodeLocation = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:8081/index.ios.bundle?platform=ios&dev=true",ip]];
+      }
     }
   }
   /**
