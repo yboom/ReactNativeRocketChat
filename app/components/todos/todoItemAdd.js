@@ -147,7 +147,7 @@ export default React.createClass({
   		}
   		else {
     		// You can display the image using either data...
-    		if(!reponse.data)
+    		if(!response.data)
     		{
     			Alert.alert('','File encode error or selected video file!');
     			return;
